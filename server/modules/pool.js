@@ -20,7 +20,7 @@ else {
   pool = new pg.Pool({
     host: 'localhost',
     port: 5432,
-    database: 'eda_solo_project',   // 👈 Change this to the name of your database!
+    database: 'monster_generator',   // 👈 Change this to the name of your database!
   });
 }
 
