@@ -144,4 +144,12 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.put('/rename/:id', async (req, res) => {
+  const { monsterId, newName } = req.body;
+  await pool.query(`UPDATE "monster" SET "name" =  $1 WHERE id = $2`, [newName, monsterId]);
+  res.json({ message: "Monster Name Updated!" });
+});
+
+
+
 module.exports = router;
