@@ -21,10 +21,12 @@ app.use(express.static('build'));
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-
+const cors = require("cors");
+const monsterRouter = require("./routes/monster.router");
 // Apply router files:
 app.use('/api/user', userRouter);
-
+app.use(cors());
+app.use("/api/monster", monsterRouter);
 // Start the server:
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
