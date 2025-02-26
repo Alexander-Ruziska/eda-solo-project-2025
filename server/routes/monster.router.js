@@ -412,7 +412,6 @@ router.post("/test", async (req, res) => {
 });
 
 
-
 router.get("/", rejectUnauthenticated, async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM monster WHERE user_id = $1",[req.user.id]);
@@ -431,23 +430,6 @@ router.get("/admin", async (req, res) => {
     res.status(500).json({ error: "Error fetching monsters" });
   }
 });
-
-
-
-
-// router.get("/", rejectUnauthenticated, (req, res) => {
-//   const sqlText = `SELECT * FROM "monster" WHERE "user_id" = $1;`;
-//   pool.query(req.user.id)
-// .then((dbRes) => {
-//   res.send(dbRes.rows);
-//     })
-//     .catch((dbErr) => {
-//       console.log('GET /api/monster error:', dbErr);
-//       res.sendStatus(500);
-//     });
-// });
-
-
 
 
 router.get("/image/:id", async (req, res) => {
@@ -475,6 +457,41 @@ router.get("/image/:id", async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", rejectUnauthenticated, (req, res) => {
+  console.log(req.params);
+  // const reqId = req.user.id; //there can't be a req.body in a delete
+  //I am trying to grab the id of the user making the request
+  // console.log(reqId);
+  const query = `DELETE FROM "monster" WHERE "monster"."id" = $1 AND "monster"."user_id" = $2;
+  `;
+  pool.query(query, [req.params.id, req.user.id]) //I need another item in brackets in these params.
+    .then(result => {
+    
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log(`Error delete backend`, err);
+      res.sendStatus(500);
+    })
+})
 
+
+router.put("/edit/:id", rejectUnauthenticated, (req, res) => {
+  console.log(req.params);
+  // const reqId = req.user.id; //there can't be a req.body in a delete
+  //I am trying to grab the id of the user making the request
+  // console.log(reqId);
+  const query = `UPDATE "monster" SET "name" = $3 WHERE "id" = $1 AND "user_id" = $2;
+  `;
+  pool.query(query, [req.params.id, req.user.id, req.body.name]) //I need another item in brackets in these params.
+    .then(result => {
+    
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log(`Error editing backend`, err);
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;
