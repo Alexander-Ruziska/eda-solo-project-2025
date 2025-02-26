@@ -3,6 +3,7 @@ const OpenAI = require("openai");
 const pool = require("../modules/pool.js");
 const router = express.Router();
 const axios = require("axios"); 
+const { Pool } = require("pg");
 // const fs = require("fs");
 const {rejectUnauthenticated} = require("../modules/authentication-middleware.js");
 const openai = new OpenAI({
@@ -42,114 +43,133 @@ router.post("/save", rejectUnauthenticated, async (req, res) => {
     }
   });
 
-router.post("/", async (req, res) => {
-  try {
-    const { name } = req.body;
-    console.log("Received name:", name);
+  router.post("/", async (req, res) => {
+    try {
+      const { name } = req.body;
+      const { challenge_rating } = req.body;
+      const { armor_class } = req.body;
+      const { environment } = req.body;
+      const { resistances } = req.body;
+      const { type } = req.body;
+      console.log("Received name:", name);
+  
+      
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: "You are a dungeon master for Dungeons and Dragons 5th Edition 2014 rules. Reply strictly in JSON format with all required fields." },
+          { role: "user", content: `Create a high-quality fantasy illustration of a monster for Dungeons & Dragons 5e.
 
-    // Generate monster JSON data
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are a dungeon master. Reply strictly in JSON format with all required fields." },
-        { role: "user", content: `Create a monster named ${name}` }
-      ],
-      tools: [
-        {
-          type: "function",
-          function: {
-            name: "generate_monster",
-            parameters: {
-              type: "object",
-              properties: {
-                type: {type: "string"},
-                name: { type: "string" },
-                description: { type: "string" },
-                strength: { type: "integer" },
-                dexterity: { type: "integer" },
-                constitution: { type: "integer" },
-                intelligence: { type: "integer" },
-                wisdom: { type: "integer" },
-                charisma: { type: "integer" },
-                speed: { type: "string" },
-                actions: { type: "array", items: { type: "string" } },
-                legendary_actions: { type: "array", items: { type: "string" } },
-                armor_class: { type: "integer" },
-                resistances: { type: "array", items: { type: "string" } },
-                immunities: { type: "array", items: { type: "string" } },
-                languages: { type: "array", items: { type: "string" } },
-                senses: { type: "array", items: { type: "string" } },
-                skills: { type: "array", items: { type: "string" } },
-                saving_throws: { type: "array", items: { type: "string" } },
-                challenge_rating: { type: "string" },
-                size: { type: "string" },
-                proficiency_bonus: { type: "string" },
-                creature_type: { type: "string" },
-                alignment: { type: "string" },
-                initiative: { type: "integer" }
-              },
-              required: [
-                "name", "description", "strength", "dexterity", "constitution",
-                "intelligence", "wisdom", "charisma", "speed", "actions",
-                "legendary_actions", "armor_class", "resistances", "immunities",
-                "languages", "senses", "skills", "saving_throws",
-                "challenge_rating", "size", "creature_type", "alignment", "initiative"
-              ]
+          - Name: ${name}
+          - Type: ${type}
+          - Challenge Rating: ${challenge_rating}
+          - Armor Class: ${armor_class}
+          - Environment: ${environment}
+          - Resistances: ${resistances}
+          The creature should match the lore, style, and design of classic D&D 5e artwork, similar to the Monster Manual. It should have intricate details, a dynamic pose, and a background that reflects its environment.
+          Use a realistic yet fantastical art style with dramatic lighting, emphasizing its power, abilities, and unique traits.
+          Ensure the monster looks game-ready for a D&D campaign, with clear visual indicators of its strengths, weaknesses, and habitat.` }
+        ],
+        tools: [
+          {
+            type: "function",
+            function: {
+              name: "generate_monster",
+              parameters: {
+                type: "object",
+                properties: {
+                  type: { type: "string" },
+                  name: { type: "string" },
+                  description: { type: "string" },
+                  strength: { type: "integer" },
+                  dexterity: { type: "integer" },
+                  constitution: { type: "integer" },
+                  intelligence: { type: "integer" },
+                  wisdom: { type: "integer" },
+                  charisma: { type: "integer" },
+                  speed: { type: "string" },
+                  actions: { type: "array", items: { type: "string" } },
+                  legendary_actions: { type: "array", items: { type: "string" } },
+                  armor_class: { type: "integer" },
+                  resistances: { type: "array", items: { type: "string" } },
+                  immunities: { type: "array", items: { type: "string" } },
+                  languages: { type: "array", items: { type: "string" } },
+                  senses: { type: "array", items: { type: "string" } },
+                  skills: { type: "array", items: { type: "string" } },
+                  saving_throws: { type: "array", items: { type: "string" } },
+                  challenge_rating: { type: "string" },
+                  size: { type: "string" },
+                  proficiency_bonus: { type: "string" },
+                  creature_type: { type: "string" },
+                  alignment: { type: "string" },
+                  initiative: { type: "integer" }
+                },
+                required: [
+                  "name", "description", "strength", "dexterity", "constitution",
+                  "intelligence", "wisdom", "charisma", "speed", "actions",
+                  "legendary_actions", "armor_class", "resistances", "immunities",
+                  "languages", "senses", "skills", "saving_throws",
+                  "challenge_rating", "size", "creature_type", "alignment", "initiative"
+                ]
+              }
             }
           }
-        }
-      ],
-      tool_choice: "auto"
-    });
-
-    // Extract and parse OpenAI's response
-    const toolCall = response.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
-    if (!toolCall) throw new Error("Missing OpenAI response data");
-
-     req.body = JSON.parse(toolCall); // Extract monster details
-
-    // Generate an image based on the monster description
-    const imageResponse = await openai.images.generate({
-      model: "dall-e-3",
-      prompt: `A detailed fantasy monster called ${req.body.name}. Description: ${req.body.description}. It is a ${req.body.size} ${req.body.creature_type} with a challenge rating of ${req.body.challenge_rating}.`,
-      size: "1024x1024",
-      n: 1
-    });
-
-    const imageUrl = imageResponse.data[0].url; // Extract the image URL
-
-    // Fetch the image and convert it to Base64
-    const imageResponseData = await axios.get(imageUrl, { responseType: "arraybuffer" });
-    const base64Image = Buffer.from(imageResponseData.data).toString("base64");
-
-    // Send the final response with JSON data and the Base64 image
-    res.json({
-      ...req.body,
-      image_base64: `data:image/png;base64,${base64Image}` // Base64-encoded image string
-    });
-
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Failed to generate monster and image" });
-  }
-});
-
-// // Get all monsters
-router.get("/", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM monster ORDER BY id DESC");
-    res.json(result.rows);
-  } catch {
-    res.status(500).json({ error: "Error fetching monsters" });
-  }
-});
-
-router.put('/rename/:id', async (req, res) => {
-  const { monsterId, newName } = req.body;
-  await pool.query(`UPDATE "monster" SET "name" =  $1 WHERE id = $2`, [newName, monsterId]);
-  res.json({ message: "Monster Name Updated!" });
-});
-
-
+        ],
+        tool_choice: { type: "function", function: { name: "generate_monster" } } 
+      });
+  
+    
+      const toolCall = response?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
+      if (!toolCall) {
+        console.error("OpenAI response missing tool_calls:", response);
+        return res.status(500).json({ error: "Failed to generate monster data. Please try again." });
+      }
+  
+      req.body = JSON.parse(toolCall); 
+      console.log("Generated monster:", req.body);
+  
+      
+      const imageResponse = await openai.images.generate({
+        model: "dall-e-3",
+        prompt: `${req.body.description}. Do not render text or anything that resembles text.`,
+        size: "1024x1024",
+        n: 1
+      });
+  
+      const imageUrl = imageResponse.data[0].url; 
+  
+      
+      res.json({
+        ...req.body,
+        image_url: imageUrl
+      });
+  
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Failed to generate monster and image" });
+    }
+  });
+  
 
 module.exports = router;
+
+// // // Get all monsters
+// router.get("/", async (req, res) => {
+//   try {
+//     const result = await pool.query("SELECT * FROM monster ORDER BY id DESC");
+//     res.json(result.rows);
+//   } catch {
+//     res.status(500).json({ error: "Error fetching monsters" });
+//   }
+// });
+
+// router.put('/rename/:id', async (req, res) => {
+//   const { monsterId, newName } = req.body;
+//   await pool.query(`UPDATE "monster" SET "name" =  $1 WHERE id = $2`, [newName, monsterId]);
+//   res.json({ message: "Monster Name Updated!" });
+// });
+
+
+
+// module.exports = router;
+
