@@ -18,15 +18,15 @@ router.post("/save", rejectUnauthenticated, async (req, res) => {
     try {
         const insertQuery = `
       INSERT INTO monster (
-        user_id, type, image_base64, name, description, strength, dexterity, constitution, intelligence,
+        hit_points, user_id, type, image_url, name, description, strength, dexterity, constitution, intelligence,
         wisdom, charisma, armor_class, initiative, speed, actions, legendary_actions, resistances, immunities,
         languages, skills, senses, saving_throws, challenge_rating, size, alignment, proficiency_bonus
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23,
-        $24, $25, $26)
+        $24, $25, $26, $27)
       RETURNING *;
     `;
     const values = [
-        req.user.id, req.body.type, req.body.image_base64, req.body.name, req.body.description, req.body.strength, req.body.dexterity,
+        req.body.hit_points, req.user.id, req.body.type, req.body.image_url, req.body.name, req.body.description, req.body.strength, req.body.dexterity,
         req.body.constitution, req.body.intelligence, req.body.wisdom, req.body.charisma, req.body.armor_class,
         req.body.initiative, req.body.speed, JSON.stringify(req.body.actions), JSON.stringify(req.body.legendary_actions), JSON.stringify(req.body.resistances), JSON.stringify(req.body.immunities),
         JSON.stringify(req.body.languages), JSON.stringify(req.body.skills), JSON.stringify(req.body.senses), JSON.stringify(req.body.saving_throws), req.body.challenge_rating, req.body.size,
@@ -67,7 +67,7 @@ router.post("/save", rejectUnauthenticated, async (req, res) => {
           - Environment: ${environment}
           - Resistances: ${resistances}
           The creature should match the lore, style, and design of classic D&D 5e artwork, similar to the Monster Manual. It should have intricate details, a dynamic pose, and a background that reflects its environment.
-          Use a realistic yet fantastical art style with dramatic lighting, emphasizing its power, abilities, and unique traits.
+          Use a realistic yet fantastical art style with dramatic lighting, emphasizing its power, abilities, and unique traits. All values must be filled out.
           Ensure the monster looks game-ready for a D&D campaign, with clear visual indicators of its strengths, weaknesses, and habitat.` }
         ],
         tools: [
@@ -78,6 +78,7 @@ router.post("/save", rejectUnauthenticated, async (req, res) => {
               parameters: {
                 type: "object",
                 properties: {
+                  hit_points: { type: "integer" },
                   type: { type: "string" },
                   name: { type: "string" },
                   description: { type: "string" },
@@ -105,11 +106,11 @@ router.post("/save", rejectUnauthenticated, async (req, res) => {
                   initiative: { type: "integer" }
                 },
                 required: [
-                  "name", "description", "strength", "dexterity", "constitution",
+                  "hit_points", "name", "description", "strength", "dexterity", "constitution",
                   "intelligence", "wisdom", "charisma", "speed", "actions",
                   "legendary_actions", "armor_class", "resistances", "immunities",
                   "languages", "senses", "skills", "saving_throws",
-                  "challenge_rating", "size", "creature_type", "alignment", "initiative"
+                  "challenge_rating", "size","proficiency_bonus", "creature_type", "alignment", "initiative"
                 ]
               }
             }
