@@ -10,7 +10,9 @@ import Nav from '../Nav/Nav';
 import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import Library from '../Library/Library';
+import GenerateMonster from '../GenerateMonster/GenerateMonster';
+import Landing from '../Landing/Landing';
 
 function App() {
   const user = useStore((state) => state.user);
@@ -55,6 +57,36 @@ function App() {
                 <Navigate to="/" replace /> // Redirect authenticated user.
               ) : (
                 <RegisterPage /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />
+          <Route 
+            exact path="/landing"
+            element={
+              user.id ? (
+                <Landing to="/landing" replace /> // Redirect authenticated user.
+              ) : (
+                <Landing /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />
+          <Route 
+            exact path="/library"
+            element={
+              user.id ? (
+                <Library to="/library" replace /> // Redirect authenticated user.
+              ) : (
+                <Library /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />
+          <Route 
+            exact path="/generate-monster"
+            element={
+              user.id ? (
+                <GenerateMonster to="/generate-monster" replace /> // Redirect authenticated user.
+              ) : (
+                <GenerateMonster /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
