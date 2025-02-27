@@ -25,7 +25,6 @@ router.post("/upload", async (req, res) => {
   res.sendStatus(201);
 })
 
-
 // router.post("/save", rejectUnauthenticated, async (req, res) => {
 //     //TODO: this is where we will make a call to cloudinary to send the 'big ass file'
 //     //we will wait for the response object, and use the img_url to persist to the monster table
@@ -390,12 +389,22 @@ router.post("/test", async (req, res) => {
     // Fetch the image and convert it to Base64
     const imageResponseData = await axios.get(imageUrl, { responseType: "arraybuffer" });
     const base64Image = Buffer.from(imageResponseData.data).toString("base64");
+   
+    // Cloudinary magic here:
 
+    const base64String = 'data:image/png;base64,'+base64Image;
+    // cloudinary.uploader
+    // .upload(base64String, {folder: 'Monsters'})
+    // .then(result=>console.log(result));
+
+    const cloudinaryResult = await cloudinary.uploader.upload(base64String, {folder: 'Monsters'});
+    const cloudUrl = cloudinaryResult.secure_url;
+    
     // Send the final response with JSON data and the Base64 image
 
     const insertQuery = `
       INSERT INTO monster (
-        hit_points, user_id, type, image_base64, name, description, strength, dexterity, constitution, intelligence,
+        hit_points, user_id, type, image_url, name, description, strength, dexterity, constitution, intelligence,
         wisdom, charisma, armor_class, initiative, speed, actions, legendary_actions, resistances, immunities,
         languages, skills, senses, saving_throws, challenge_rating, size, alignment, proficiency_bonus
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23,
@@ -404,7 +413,7 @@ router.post("/test", async (req, res) => {
     `;
 
     const values = [
-      req.body.hit_points, req.user.id, req.body.type, base64Image, req.body.name, req.body.description, req.body.strength, req.body.dexterity,
+      req.body.hit_points, req.user.id, req.body.type, cloudUrl, req.body.name, req.body.description, req.body.strength, req.body.dexterity,
       req.body.constitution, req.body.intelligence, req.body.wisdom, req.body.charisma, req.body.armor_class,
       req.body.initiative, req.body.speed, JSON.stringify(req.body.actions), JSON.stringify(req.body.legendary_actions), JSON.stringify(req.body.resistances), JSON.stringify(req.body.immunities),
       JSON.stringify(req.body.languages), JSON.stringify(req.body.skills), JSON.stringify(req.body.senses), JSON.stringify(req.body.saving_throws), req.body.challenge_rating, req.body.size,
