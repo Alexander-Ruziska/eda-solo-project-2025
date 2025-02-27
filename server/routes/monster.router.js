@@ -3,11 +3,27 @@ const OpenAI = require("openai");
 const pool = require("../modules/pool.js");
 const router = express.Router();
 const axios = require("axios"); 
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+api_key: process.env.CLOUDINARY_API_KEY,
+api_secret: process.env.CLOUDINARY_API_SECRET
+}) 
+
+// const url = cloudinary.url(image);
+
 // const fs = require("fs");
 const {rejectUnauthenticated} = require("../modules/authentication-middleware.js");
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // API key from .env
 });
+
+router.post("/upload", async (req, res) => {
+  // console.log('cloudinary url',url); 
+ 
+  res.sendStatus(201);
+})
 
 
 // router.post("/save", rejectUnauthenticated, async (req, res) => {
@@ -450,7 +466,7 @@ router.get("/image/:id", async (req, res) => {
     }
 
     // Send the base64 string wrapped in a Data URL format
-    res.json({ image: `data:image/png;base64,${base64String}` });
+    res.send({ image: `data:image/png;base64,${base64String}` });
   } catch (error) {
       console.error("Error fetching monster image", error);
       res.sendStatus(500);
