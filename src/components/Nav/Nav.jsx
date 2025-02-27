@@ -35,6 +35,15 @@ function Nav() {
             <li>
               <NavLink to="/library">Library</NavLink>
             </li>
+            <li>
+              <NavLink to="/create-campaign">Create a Campaign</NavLink>
+            </li>
+            <li>
+              <NavLink to="/campaign-select">Select a Campaign</NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin">Admin</NavLink>
+            </li>
           </>
         )}
       {/* Show these links regardless of auth status: */}
