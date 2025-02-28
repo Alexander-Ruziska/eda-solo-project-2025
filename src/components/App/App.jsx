@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Container from 'react-bootstrap/Container';
 import {
   Routes,
   Route,
@@ -16,6 +17,7 @@ import Landing from '../Landing/Landing';
 
 
 
+
 function App() {
   const user = useStore((state) => state.user);
   const fetchUser = useStore((state) => state.fetchUser);
@@ -25,11 +27,8 @@ function App() {
   }, [fetchUser]);
 
   return (
-    <>
-      <header>
-        <h1>Ziska's Monster Generator</h1>
-        <Nav />
-      </header>
+    <Container>
+      <Nav />
       <main>
         <Routes>
           <Route 
@@ -146,7 +145,7 @@ function App() {
       <footer>
         <p>Copyright © {new Date().getFullYear()}</p>
       </footer>
-    </>
+      </Container>
   );
 }
 
