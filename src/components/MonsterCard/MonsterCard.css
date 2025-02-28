@@ -1,0 +1,20 @@
+.monster-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .monster-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem;
+    width: 220px;
+    text-align: center;
+  }
+  
+  .monster-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+  

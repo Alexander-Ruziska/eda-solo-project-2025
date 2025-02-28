@@ -168,7 +168,7 @@ router.post("/upload", async (req, res) => {
 //   }
 // });
 
-router.post("/test", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { name } = req.body;
     const { challenge_rating } = req.body;
@@ -446,11 +446,24 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM monster WHERE id = $1", [req.params.id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Monster not found" });
+    }
+    res.send(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching monster details", error);
+    res.sendStatus(500);
+  }
+});
+
 // // Get all monsters
 router.get("/admin", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM monster ORDER BY id DESC");
-    res.json(result.rows);
+    res.send(result.rows);
   } catch {
     res.status(500).json({ error: "Error fetching monsters" });
   }
@@ -459,26 +472,22 @@ router.get("/admin", async (req, res) => {
 
 router.get("/image/:id", async (req, res) => {
   const monsterId = req.params.id;
-
   try {
-    const queryText = `SELECT image_base64 FROM monster WHERE id = $1 LIMIT 1;`;
-    const result = await pool.query(queryText, [monsterId]);
-
+    const result = await pool.query(
+      "SELECT image_url FROM monster WHERE id = $1 LIMIT 1",
+      [monsterId]
+    );
     if (result.rows.length === 0) {
-        return res.status(404).json({ error: "Monster not found" });
+      return res.status(404).json({ error: "Monster not found" });
     }
-
-    const base64String = result.rows[0].image_base64;
-
-    if (!base64String) {
-        return res.status(404).json({ error: "Image not found" });
+    const imageUrl = result.rows[0].image_url;
+    if (!imageUrl) {
+      return res.status(404).json({ error: "Image not found" });
     }
-
-    // Send the base64 string wrapped in a Data URL format
-    res.send({ image: `data:image/png;base64,${base64String}` });
+    res.json({ image: imageUrl });
   } catch (error) {
-      console.error("Error fetching monster image", error);
-      res.sendStatus(500);
+    console.error("Error fetching monster image", error);
+    res.sendStatus(500);
   }
 });
 
@@ -503,12 +512,9 @@ router.delete("/delete/:id", rejectUnauthenticated, (req, res) => {
 
 router.put("/edit/:id", rejectUnauthenticated, (req, res) => {
   console.log(req.params);
-  // const reqId = req.user.id; //there can't be a req.body in a delete
-  //I am trying to grab the id of the user making the request
-  // console.log(reqId);
   const query = `UPDATE "monster" SET "name" = $3 WHERE "id" = $1 AND "user_id" = $2;
   `;
-  pool.query(query, [req.params.id, req.user.id, req.body.name]) //I need another item in brackets in these params.
+  pool.query(query, [req.params.id, req.user.id, req.body.name]) 
     .then(result => {
     
       res.send(result.rows);
