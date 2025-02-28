@@ -5,11 +5,7 @@ import useStore from "../../zustand/store";
 function HomePage() {
   const user = useStore((state) => state.user);
   const logOut = useStore((state) => state.logOut);
-  const fetchMonster = useStore((state) => state.fetchMonsterById);
-
-  useEffect(() => {
-    fetchMonster(1);
-  }, []);
+  
 
   return (
     <>

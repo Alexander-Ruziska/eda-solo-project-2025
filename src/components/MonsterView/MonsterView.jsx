@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import useStore from "../../zustand/store"; // Adjust the import path as needed
 import "./MonsterView.css"; 
 
 const MonsterView = () => {
@@ -10,18 +10,21 @@ const MonsterView = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [newName, setNewName] = useState("");
 
+  // Destructure the functions from the global store
+  const { fetchMonsterDetail, updateMonster, deleteMonster } = useStore();
+
   useEffect(() => {
     async function fetchMonster() {
       try {
-        const response = await axios.get(`/api/monster/${id}`);
-        setMonster(response.data);
-        setNewName(response.data.name);
+        const data = await fetchMonsterDetail(id);
+        setMonster(data);
+        setNewName(data.name);
       } catch (error) {
         console.error("Error fetching monster details:", error);
       }
     }
     fetchMonster();
-  }, [id]);
+  }, [id, fetchMonsterDetail]);
 
   if (!monster) return <div>Loading...</div>;
 
@@ -32,8 +35,8 @@ const MonsterView = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/monster/edit/${id}`, { name: newName });
-      setMonster({ ...monster, name: newName });
+      const updatedData = await updateMonster(id, { name: newName });
+      setMonster({ ...monster, ...updatedData });
     } catch (error) {
       console.error("Error updating monster name:", error);
     }
@@ -41,8 +44,8 @@ const MonsterView = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/monster/delete/${id}`);
-      navigate("/library"); 
+      await deleteMonster(id);
+      navigate("/library");
     } catch (error) {
       console.error("Error deleting monster:", error);
     }
@@ -52,7 +55,12 @@ const MonsterView = () => {
     <div className="monster-view-wrapper">
       
       <form onSubmit={handleSubmit} className="update-form">
-        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} className="update-input"/>
+        <input 
+          type="text" 
+          value={newName} 
+          onChange={(e) => setNewName(e.target.value)} 
+          className="update-input"
+        />
         <button type="submit" className="update-button">Update Name</button>
       </form>
 

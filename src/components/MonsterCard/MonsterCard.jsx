@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import useStore from "../../zustand/store"; // Adjust the import path as needed
 import "./MonsterCard.css"; 
 
 const MonsterCard = ({ monster }) => {
-  const [image, setImage] = useState(null);
+  // Destructure monsterImages and fetchMonsterImage from the global store
+  const { monsterImages, fetchMonsterImage } = useStore();
+  // Retrieve the image for the current monster from the store
+  const image = monsterImages[monster.id];
 
   useEffect(() => {
-    async function fetchImage() {
-      try {
-        const response = await axios.get(`/api/monster/image/${monster.id}`);
-        setImage(response.data.image);
-      } catch (error) {
-        console.error("Error fetching monster image:", error);
-      }
+    // Only fetch the image if it hasn't been loaded yet
+    if (!image) {
+      fetchMonsterImage(monster.id);
     }
-    fetchImage();
-  }, [monster.id]);
+  }, [monster.id, image, fetchMonsterImage]);
 
   return (
     <Link to={`/monster/${monster.id}`} className="monster-link">

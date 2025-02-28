@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>EDA Solo Project</h1>
+        <h1>Ziska's Monster Generator</h1>
         <Nav />
       </header>
       <main>
