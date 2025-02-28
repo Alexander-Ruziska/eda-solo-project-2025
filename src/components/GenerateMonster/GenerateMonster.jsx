@@ -1,41 +1,57 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../zustand/store';
+import axios from 'axios';
 
 function GenerateMonster() {
   const navigate = useNavigate();
-  const addMonster = useStore(state => state.addMonster);
   const [form, setForm] = useState({
+    name: '',
     challengeRating: '',
     acRequirements: '',
-    hpLimit: '',
     environment: '',
-    description: '',
+    resistances: '',
     creatureType: ''
   });
 
   const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value});
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addMonster(form);
-    navigate('/library');
+
+   
+    const monsterData = {
+      name: form.name,
+      challenge_rating: form.challengeRating,
+      armor_class: form.acRequirements,
+      environment: form.environment,
+      resistances: form.resistances,
+      type: form.creatureType
+    };
+
+    try {
+      await axios.post('/api/monster', monsterData);
+      navigate('/library');
+    } catch (error) {
+      console.error("Error creating monster:", error);
+    }
   };
 
   return (
     <div>
       <h1>Generate a Monster</h1>
       <form onSubmit={handleSubmit}>
-        <input name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} />
-        <input name="acRequirements" placeholder="AC Requirements" onChange={handleChange} />
-        <input name="hpLimit" placeholder="HP Limit" onChange={handleChange} />
-        <input name="environment" placeholder="Environment" onChange={handleChange} />
-        <input name="description" placeholder="Description" onChange={handleChange} />
-        <input name="creatureType" placeholder="Creature Type" onChange={handleChange} />
+        <input name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
+        <input name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
+        <input name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
+        <input name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
+        <input name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
+        <input name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
         <button type="submit">Generate Monster</button>
-        <button onClick={() => navigate('/library')}>Back to Library</button>
+        <button type="button" onClick={() => navigate('/library')}>
+          Back to Library
+        </button>
       </form>
     </div>
   );

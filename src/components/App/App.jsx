@@ -4,7 +4,7 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
-
+import MonsterView from "../MonsterView/MonsterView";
 import useStore from '../../zustand/store';
 import Nav from '../Nav/Nav';
 import HomePage from '../HomePage/HomePage';
@@ -13,6 +13,8 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
 import GenerateMonster from '../GenerateMonster/GenerateMonster';
 import Landing from '../Landing/Landing';
+
+
 
 function App() {
   const user = useStore((state) => state.user);
@@ -87,6 +89,16 @@ function App() {
                 <GenerateMonster to="/generate-monster" replace /> // Redirect authenticated user.
               ) : (
                 <GenerateMonster /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />
+          <Route 
+            exact path="/monster/:id"
+            element={
+              user.id ? (
+                <MonsterView to="/monster-view" replace /> // Redirect authenticated user.
+              ) : (
+                <MonsterView /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
