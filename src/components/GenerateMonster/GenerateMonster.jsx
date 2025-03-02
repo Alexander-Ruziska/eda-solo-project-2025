@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 function GenerateMonster() {
   const navigate = useNavigate();
@@ -12,15 +13,19 @@ function GenerateMonster() {
     resistances: '',
     creatureType: ''
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-   
     const monsterData = {
       name: form.name,
       challenge_rating: form.challengeRating,
@@ -30,13 +35,22 @@ function GenerateMonster() {
       type: form.creatureType
     };
 
+    setLoading(true);
     try {
-      await axios.post('/api/monster', monsterData);
-      navigate('/library');
+      // Expecting the new monster object to be returned with an `id` property
+      const { data: newMonster } = await axios.post('/api/monster', monsterData);
+      // Navigate to the newly created monster's view using its id
+      navigate(`/monster/${newMonster.id}`);
     } catch (error) {
       console.error("Error creating monster:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div>
@@ -50,11 +64,12 @@ function GenerateMonster() {
         <input name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
         <button type="submit">Generate Monster</button>
         <button type="button" onClick={() => navigate('/library')}>
-          Back to Library
+          Go to Library
         </button>
       </form>
     </div>
   );
 }
+
 
 export default GenerateMonster;

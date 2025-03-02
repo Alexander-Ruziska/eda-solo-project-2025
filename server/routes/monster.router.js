@@ -195,170 +195,146 @@ router.post("/", async (req, res) => {
           Ensure the monster looks game-ready for a D&D campaign, with clear visual indicators of its strengths, weaknesses, and habitat.` }
       ],
       response_format: {
-        "type": "json_schema",
-        "json_schema": {
-          "name": "creature_schema",
-          "strict": true,
-          "schema": {
-            "type": "object",
-            "properties": {
-              "hit_points": {
-                "type": "integer",
-                "description": "The hit points of the creature."
-              },
-              "type": {
-                "type": "string",
-                "description": "The type of the creature."
-              },
-              "name": {
-                "type": "string",
-                "description": "The name of the creature."
-              },
-              "description": {
-                "type": "string",
-                "description": "A description of the creature."
-              },
-              "strength": {
-                "type": "integer",
-                "description": "The strength attribute of the creature."
-              },
-              "dexterity": {
-                "type": "integer",
-                "description": "The dexterity attribute of the creature."
-              },
-              "constitution": {
-                "type": "integer",
-                "description": "The constitution attribute of the creature."
-              },
-              "intelligence": {
-                "type": "integer",
-                "description": "The intelligence attribute of the creature."
-              },
-              "wisdom": {
-                "type": "integer",
-                "description": "The wisdom attribute of the creature."
-              },
-              "charisma": {
-                "type": "integer",
-                "description": "The charisma attribute of the creature."
-              },
-              "speed": {
-                "type": "string",
-                "description": "The speed of the creature."
-              },
-              "actions": {
-                "type": "array",
-                "description": "A list of actions that the creature can perform.",
-                "items": {
-                  "type": "string"
+          "type": "json_schema",
+          "json_schema": {
+            "name": "creature_schema",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hit_points": {
+                  "type": "integer",
+                  "description": "The hit points of the creature."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "The type of the creature."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the creature."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A description of the creature."
+                },
+                "strength": {
+                  "type": "integer",
+                  "description": "The strength attribute of the creature."
+                },
+                "dexterity": {
+                  "type": "integer",
+                  "description": "The dexterity attribute of the creature."
+                },
+                "constitution": {
+                  "type": "integer",
+                  "description": "The constitution attribute of the creature."
+                },
+                "intelligence": {
+                  "type": "integer",
+                  "description": "The intelligence attribute of the creature."
+                },
+                "wisdom": {
+                  "type": "integer",
+                  "description": "The wisdom attribute of the creature."
+                },
+                "charisma": {
+                  "type": "integer",
+                  "description": "The charisma attribute of the creature."
+                },
+                "speed": {
+                  "type": "string",
+                  "description": "The speed of the creature."
+                },
+                "actions": {
+                  "type": "string",
+                  "description": "A list of actions that the creature can perform."
+                },
+                "legendary_actions": {
+                  "type": "string",
+                  "description": "A list of legendary actions that the creature can perform."
+                },
+                "armor_class": {
+                  "type": "integer",
+                  "description": "The armor class of the creature."
+                },
+                "resistances": {
+                  "type": "string",
+                  "description": "A list of damage types that the creature is resistant to."
+                },
+                "immunities": {
+                  "type": "string",
+                  "description": "A list of damage types that the creature is immune to."
+                },
+                "languages": {
+                  "type": "string",
+                  "description": "A list of languages that the creature can speak."
+                },
+                "senses": {
+                  "type": "string",
+                  "description": "A list of senses that the creature possesses."
+                },
+                "skills": {
+                  "type": "string",
+                  "description": "A list of skills the creature possesses."
+                },
+                "saving_throws": {
+                  "type": "string",
+                  "description": "A list of saving throws the creature has proficiency in."
+                },
+                "challenge_rating": {
+                  "type": "string",
+                  "description": "The challenge rating of the creature."
+                },
+                "size": {
+                  "type": "string",
+                  "description": "The size classification of the creature."
+                },
+                "proficiency_bonus": {
+                  "type": "string",
+                  "description": "The proficiency bonus of the creature."
+                },
+                "creature_type": {
+                  "type": "string",
+                  "description": "The classification of the creature's type."
+                },
+                "alignment": {
+                  "type": "string",
+                  "description": "The alignment of the creature."
+                },
+                "initiative": {
+                  "type": "integer",
+                  "description": "The initiative modifier of the creature."
                 }
               },
-              "legendary_actions": {
-                "type": "array",
-                "description": "A list of legendary actions that the creature can perform.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "armor_class": {
-                "type": "integer",
-                "description": "The armor class of the creature."
-              },
-              "resistances": {
-                "type": "array",
-                "description": "A list of damage types that the creature is resistant to.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "immunities": {
-                "type": "array",
-                "description": "A list of damage types that the creature is immune to.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "languages": {
-                "type": "array",
-                "description": "A list of languages that the creature can speak.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "senses": {
-                "type": "array",
-                "description": "A list of senses that the creature possesses.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "skills": {
-                "type": "array",
-                "description": "A list of skills the creature possesses.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "saving_throws": {
-                "type": "array",
-                "description": "A list of saving throws the creature has proficiency in.",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "challenge_rating": {
-                "type": "string",
-                "description": "The challenge rating of the creature."
-              },
-              "size": {
-                "type": "string",
-                "description": "The size classification of the creature."
-              },
-              "proficiency_bonus": {
-                "type": "string",
-                "description": "The proficiency bonus of the creature."
-              },
-              "creature_type": {
-                "type": "string",
-                "description": "The classification of the creature's type."
-              },
-              "alignment": {
-                "type": "string",
-                "description": "The alignment of the creature."
-              },
-              "initiative": {
-                "type": "integer",
-                "description": "The initiative modifier of the creature."
-              }
-            },
-            "required": [
-              "hit_points",
-              "type",
-              "name",
-              "description",
-              "strength",
-              "dexterity",
-              "constitution",
-              "intelligence",
-              "wisdom",
-              "charisma",
-              "speed",
-              "actions",
-              "legendary_actions",
-              "armor_class",
-              "resistances",
-              "immunities",
-              "languages",
-              "senses",
-              "skills",
-              "saving_throws",
-              "challenge_rating",
-              "size",
-              "proficiency_bonus",
-              "creature_type",
-              "alignment",
-              "initiative"
-            ],
+              "required": [
+                "hit_points",
+                "type",
+                "name",
+                "description",
+                "strength",
+                "dexterity",
+                "constitution",
+                "intelligence",
+                "wisdom",
+                "charisma",
+                "speed",
+                "actions",
+                "legendary_actions",
+                "armor_class",
+                "resistances",
+                "immunities",
+                "languages",
+                "senses",
+                "skills",
+                "saving_throws",
+                "challenge_rating",
+                "size",
+                "proficiency_bonus",
+                "creature_type",
+                "alignment",
+                "initiative"
+              ],
             "additionalProperties": false
           }
         }

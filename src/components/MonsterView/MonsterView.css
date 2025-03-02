@@ -1,92 +1,112 @@
-
+/* Monster view wrapper centered on desktop, full width on mobile */
 .monster-view-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Update form is centered */
+.update-form {
+  width: 600px;
+  margin: 0 auto 20px;
+}
+.update-button {
+  position: relative;
+  top: -10px; /* Moves button up by 20px */
+}
+/* Flip Card Container – fixed size on desktop */
+.flip-container {
+  perspective: 1000px;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto 20px;
+  cursor: pointer;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+}
+
+.front-face,
+.back-face {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.front-face {
+  background-color: #fff;
+}
+
+.back-face {
+  background-color: #fff;
+  transform: rotateY(180deg);
+  overflow-y: auto;
+}
+
+/* Rounded image */
+.monster-image {
+  border-radius: 8px;
+}
+
+/* Glow on hover */
+.flip-container:hover .front-face,
+.flip-container:hover .back-face {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Custom styling for back content */
+.back-content {
+  font-size: 0.9rem;
+}
+
+.header-section {
+  margin: 10px 0 0.3rem;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
   
-  .update-form {
-    display: flex;
-    gap: 0.5rem;
+  .monster-view-wrapper {
+    max-width: 100%;
+    padding-top: 1rem;
+    padding: 0;
   }
-  
-  .update-input {
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  .update-button {
-    padding: 0.5rem;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
   .flip-container {
-    perspective: 1000px;
-    width: 400px; 
-    height: 400px; 
-    cursor: pointer;
+    width: 90vw;
+    height: 90vw;
+    margin-bottom: 40px;
   }
-  
-  .flip-card {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.8s;
-  }
-  
   .flip-card.flipped {
-    transform: rotateY(180deg);
+    height: 150vw; /* Adjust as needed so all text fits */
   }
-  
-  .face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    box-sizing: border-box;
+  .update-form {
+    padding-top: 1rem;
+    width: 90vw;
   }
-  
-  .front-face {
-    background-color: #fff;
+  .back-content {
+    font-size: 0.75rem;
   }
-  
-  .back-face {
-    background-color: #fff;
-    transform: rotateY(180deg);
-    padding: 1rem;
-    box-sizing: border-box;
+  .header-section {
+    font-size: 1rem;
   }
-  
-  .monster-image {
-    width: 100%;
-    height: 80%;
-    object-fit: cover;
-  }
-  
-  .monster-name {
-    margin-top: 8px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .monster-description {
-    margin-top: 8px;
-    text-align: center;
-  }
-  
+}

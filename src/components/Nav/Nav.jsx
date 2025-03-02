@@ -29,8 +29,8 @@ function BasicExample() {
   return (
     <header>
       <Col>
-        <Navbar expand="lg" className="bg-body-tertiary">
-          <Container>
+        <Navbar expand="lg" className="bg-body-tertiary" sticky="top">
+          <Container fluid>
             <Navbar.Brand href="#home">Ziska's Monster Generator</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -39,10 +39,13 @@ function BasicExample() {
                   <NavLink className="nav-link" to="/login">Login</NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <NavLink className="nav-link" to="/register">Register</NavLink>
+                  <NavLink className="nav-link" to="/registration">Register</NavLink>
                 </Nav.Item>
                 <Nav.Item>
                   <NavLink className="nav-link" to="/landing">Home</NavLink>
+                </Nav.Item>
+                <Nav.Item>
+                  <NavLink className="nav-link" to="/generate-monster">Create Monster</NavLink>
                 </Nav.Item>
                 <Nav.Item>
                   <NavLink className="nav-link" to="/library">Library</NavLink>
@@ -55,6 +58,9 @@ function BasicExample() {
                 </Nav.Item>
                 <Nav.Item>
                   <NavLink className="nav-link" to="/admin">Admin</NavLink>
+                </Nav.Item>
+                <Nav.Item>
+                  <NavLink className="nav-link" to="/about">About</NavLink>
                 </Nav.Item>
                 <Nav.Link href="#link">Link</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
