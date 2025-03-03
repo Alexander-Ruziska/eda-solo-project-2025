@@ -4,26 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from 'react-router-dom';
-// </li>
-//             <li>
-//               <NavLink to="/library">Library</NavLink>
-//             </li>
-//             <li>
-//               <NavLink to="/create-campaign">Create a Campaign</NavLink>
-//             </li>
-//             <li>
-//               <NavLink to="/campaign-select">Select a Campaign</NavLink>
-//             </li>
-//             <li>
-//               <NavLink to="/admin">Admin</NavLink>
-//             </li>
-//           </>
-//         )}
-//       {/* Show these links regardless of auth status: */}
-//         <li>
-//           <NavLink to="/about">About</NavLink>
-//         </li>
-//       </ul>
 
 function BasicExample() {
   return (
