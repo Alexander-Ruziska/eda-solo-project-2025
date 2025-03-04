@@ -20,8 +20,10 @@ body {
   color: rgba(0, 0, 0, 0.75);
   background-image: url(../public/Images/2560x1600-terrain-wa.jpg);
   background-repeat: no-repeat;
-  background-attachment:fixed;
-  background-size: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: auto;
 }
 
 /* Basic Header/Main/Footer Flexbox Layout: */
@@ -112,6 +114,11 @@ button:hover, button:focus {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 70px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
 }
 @media (max-width: 768px) {
   body {

@@ -4,6 +4,14 @@
     align-items: center;
     gap: 10px; 
   }
-  .page-content {
-    text-align: center;
+  
+  h1 {
+    display: flex;
+    align-items: center;
+    color: antiquewhite;
+    margin-top: 90px;
+  }
+
+  .form-control {
+    margin-top: 2rem;
   }

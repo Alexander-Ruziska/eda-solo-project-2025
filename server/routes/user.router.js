@@ -43,6 +43,21 @@ router.post('/register', (req, res, next) => {
 });
 
 
+
+// Archive a user (mark as archived without deleting)
+router.put("/archive/:id", (req, res) => {
+  const userId = req.params.id;
+  const queryText = `UPDATE "user" SET archived = true WHERE id = $1 RETURNING *;`;
+  pool.query(queryText, [userId])
+    .then(result => {
+      res.send(result.rows[0]);
+    })
+    .catch(err => {
+      console.error("Error archiving user", err);
+      res.sendStatus(500);
+    });
+});
+
 router.get("/admin", (req, res) => {
   const queryText = `SELECT * FROM "user";`;
   pool.query(queryText)

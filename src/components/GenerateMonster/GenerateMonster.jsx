@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingPage from '../LoadingPage/LoadingPage';
-
+import "./GenerateMonster.css"; 
 function GenerateMonster() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -54,16 +54,18 @@ function GenerateMonster() {
 
   return (
     <div>
-      <h1 className="page-content" style={{ marginTop: '70px' }}>Generate a Monster</h1>
       <form className="input-form" onSubmit={handleSubmit}>
-        <input name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
-        <input name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
-        <input name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
-        <input name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
-        <input name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
-        <input name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
-        <button type="submit">Generate Monster</button>
-        <button type="button" onClick={() => navigate('/library')}>
+      <h1>Generate a Monster</h1>
+      <div class="col-sm-3">
+        <input class="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
+        <input class="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
+        <input class="form-control" name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
+        <input class="form-control" name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
+        <input class="form-control" name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
+        <input class="form-control" name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
+        </div>
+        <button class="btn btn-dark mt-3" type="submit">Generate Monster</button>
+        <button class="btn btn-dark mt-3" type="button" onClick={() => navigate('/library')}>
           Go to Library
         </button>
       </form>
