@@ -14,6 +14,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
 import GenerateMonster from '../GenerateMonster/GenerateMonster';
 import Landing from '../Landing/Landing';
+import AdminUsers from '../Admin/AdminUsers';
 
 
 
@@ -102,10 +103,20 @@ function App() {
             }
           />
           <Route 
+            exact path="/admin"
+            element={
+              user.id ? (
+                <AdminUsers to="/admin" replace /> // Redirect authenticated user.
+              ) : (
+                <AdminUsers /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />
+          <Route 
             exact path="/about"
             element={
               <>
-                <h2>About Page</h2>
+                <h2 style={{ marginTop: '70px' }}>About Page</h2>
                 <p>
                   Intelligence doesn’t seem like an aspect of personal character, and it isn’t.
                   Coincidentally, great intelligence is only loosely connected to being a good programmer.

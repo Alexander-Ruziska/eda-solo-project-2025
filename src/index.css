@@ -18,6 +18,10 @@ body {
   font-family: sans-serif;
   background-color: #f0f0f0;
   color: rgba(0, 0, 0, 0.75);
+  background-image: url(../public/Images/2560x1600-terrain-wa.jpg);
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: 100%;
 }
 
 /* Basic Header/Main/Footer Flexbox Layout: */
@@ -101,4 +105,19 @@ button:hover, button:focus {
   text-decoration: wavy underline;
   text-decoration-color: #20c997;
   text-decoration-thickness: 2px;
+}
+
+.monster-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 70px;
+}
+@media (max-width: 768px) {
+  body {
+    background-image: url(../public/Images/2560x1600-terrain-wa.jpg);
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: 170vh;
+  }
 }

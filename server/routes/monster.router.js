@@ -388,23 +388,24 @@ router.post("/", async (req, res) => {
       RETURNING *;
     `;
 
+    console.log(`Monster stats (req.body):`, req.body);
+
     const values = [
       req.body.hit_points, req.user.id, req.body.type, cloudUrl, req.body.name, req.body.description, req.body.strength, req.body.dexterity,
       req.body.constitution, req.body.intelligence, req.body.wisdom, req.body.charisma, req.body.armor_class,
-      req.body.initiative, req.body.speed, JSON.stringify(req.body.actions), JSON.stringify(req.body.legendary_actions), JSON.stringify(req.body.resistances), JSON.stringify(req.body.immunities),
-      JSON.stringify(req.body.languages), JSON.stringify(req.body.skills), JSON.stringify(req.body.senses), JSON.stringify(req.body.saving_throws), req.body.challenge_rating, req.body.size,
+      req.body.initiative, req.body.speed, req.body.actions, req.body.legendary_actions, req.body.resistances, req.body.immunities,
+      req.body.languages, req.body.skills, req.body.senses, req.body.saving_throws, req.body.challenge_rating, req.body.size,
        req.body.alignment, req.body.proficiency_bonus
     ];
+
+    console.log(`SQL Values:`, values);
     
-    await pool.query(insertQuery, values);
+    const lastRecord = await pool.query(insertQuery, values);
 
     // get the record we just inserted
-    const lastRecord = await pool.query("SELECT id FROM monster ORDER BY id DESC LIMIT 1");
-
-    res.json({
-      id: lastRecord.rows[0].id,
-      ...req.body,
-    });
+    // const lastRecord = await pool.query("SELECT id FROM monster ORDER BY id DESC LIMIT 1");
+// 
+    res.json(lastRecord.rows[0]);
 
   } catch (error) {
     console.error("Error:", error);

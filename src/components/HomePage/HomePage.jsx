@@ -9,7 +9,7 @@ function HomePage() {
 
   return (
     <>
-      <h2>Home Page</h2>
+      <h2 style={{ marginTop: '70px' }}>Home Page</h2>
       <p>Your username is: {user.username}</p>
       <p>Your ID is: {user.id}</p>
       <button onClick={logOut}>Log Out</button>

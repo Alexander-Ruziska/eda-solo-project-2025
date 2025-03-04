@@ -1,32 +1,21 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import MonsterCard from "../MonsterCard/MonsterCard";
+import useStore from "../../zustand/store"; // Adjust the path as needed
 
 const Library = () => {
-  const [monsters, setMonsters] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Extract monsters and fetchMonsters from the global store
+  const { monsters, fetchMonsters } = useStore();
 
   useEffect(() => {
-    async function fetchMonsters() {
-      try {
-        // Fetch all monsters for the current user from your API
-        const response = await axios.get("/api/monster");
-        setMonsters(response.data);
-      } catch (error) {
-        console.error("Error fetching monsters:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchMonsters();
-  }, []);
+  }, [fetchMonsters]);
 
-  if (loading) {
+  if (monsters.length === 0) {
     return <p>Loading monsters...</p>;
   }
 
   return (
-    <div className="monster-gallery" style={galleryStyle}>
+    <div className="monster-gallery">
       {monsters.map((monster) => (
         <MonsterCard key={monster.id} monster={monster} />
       ))}
@@ -34,10 +23,5 @@ const Library = () => {
   );
 };
 
-const galleryStyle = {
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "center",
-};
 
 export default Library;

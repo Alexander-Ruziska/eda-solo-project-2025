@@ -42,6 +42,18 @@ router.post('/register', (req, res, next) => {
     });
 });
 
+
+router.get("/admin", (req, res) => {
+  const queryText = `SELECT * FROM "user";`;
+  pool.query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("Error getting user", err);
+      res.sendStatus(500);
+    });
+});
 // Handles the logic for logging in a user. When this route receives
 // a request, it runs a middleware function that leverages the Passport
 // library to instantiate a session if the request body's username and
