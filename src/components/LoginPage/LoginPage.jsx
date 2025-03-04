@@ -27,7 +27,7 @@ function LoginPage() {
 
   return (
     <>
-      <h2 style={{ marginTop: '70px' }}>Login Page</h2>
+      <h2 style={{ marginTop: '100px' }}>Login Page</h2>
       <form onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
@@ -45,7 +45,7 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button class="btn btn-dark mt-3" type="submit">
           Log In
         </button>
       </form>

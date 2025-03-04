@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useStore from "../../zustand/store";
-
+import "./AdminUsers.css"; 
 function AdminUsers() {
   const users = useStore((state) => state.users);
   const fetchUsers = useStore((state) => state.fetchUsers);
@@ -11,7 +11,7 @@ function AdminUsers() {
   }, [fetchUsers]);
 
   return (
-    <div style={{ marginTop: "60px" }}>
+    <div class="users" style={{ marginTop: "100px" }}>
       <h2>Welcome Ziska!</h2>
       <table>
         <thead>
@@ -27,7 +27,7 @@ function AdminUsers() {
               <td>{user.username}</td>
               <td>{new Date(user.created).toLocaleDateString()}</td>
               <td>
-                <button onClick={() => archiveUser(user.id)}>Archive</button>
+                <button class="btn btn-dark mt-4" onClick={() => archiveUser(user.id)}>Archive</button>
               </td>
             </tr>
           ))}
