@@ -54,8 +54,8 @@ function GenerateMonster() {
 
   return (
     <div>
-      <h1>Generate a Monster</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="page-content" style={{ marginTop: '70px' }}>Generate a Monster</h1>
+      <form className="input-form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
         <input name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
         <input name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>

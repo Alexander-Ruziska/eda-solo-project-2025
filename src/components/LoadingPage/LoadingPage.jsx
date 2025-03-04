@@ -42,9 +42,9 @@ const LoadingPage = () => {
 
   return (
     <div>
-      <h1>Your Monster is being generated!</h1>
+      <h1 style={{ marginTop: '60px' }}>Your Monster is being generated!</h1>
       <img src="public/Images/Monster_Manual_5e_-_Beholder_-_p28.webp" style={{ width: '400px', height: '400px', marginBottom: '1rem' }}></img>
-      <p>{fact}</p>
+      <p>Did you know: {fact}</p>
     </div>
   );
 };

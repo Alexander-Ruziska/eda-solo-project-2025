@@ -50,7 +50,6 @@ const MonsterView = () => {
 
   // Handler for updating the monster's name
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
     try {
       // Call updateMonster from the store with the new name
       const updatedData = await updateMonster(id, { name: newName });
@@ -72,14 +71,14 @@ const MonsterView = () => {
   };
 
   // Determine if the device is mobile based on window width
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 800;
   // Set container height based on device type and flip state:
   // - Desktop: fixed height of 600px.
   // - Mobile: 90vw if not flipped; 150vw if flipped.
-  const containerHeight = isMobile ? (isFlipped ? "100%" : "90vw") : "600px";
+  const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600px";
 
   return (
-    <Container className="monster-view-wrapper">
+    <Container style={{ marginTop: '70px' }} className="monster-view-wrapper">
       {/* Update form for changing the monster name */}
       <form onSubmit={handleSubmit} className="update-form">
         <InputGroup>
@@ -125,6 +124,7 @@ const MonsterView = () => {
                     <Card.Title>{monster.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
                       {monster.size} | {monster.alignment}
+                      <Card.Subtitle className="mb-2 text-muted">Creature Type: {monster.type}</Card.Subtitle>
                     </Card.Subtitle>
                   </div>
                   {/* Stats section displaying key numerical attributes */}
@@ -164,6 +164,9 @@ const MonsterView = () => {
                     <div className="attribute">
                       <strong>Saving Throws:</strong> {monster.saving_throws.replace(/^\[|\]$/g, "")}
                     </div>
+                    <div className="attribute">
+                      <strong>Challenge Rating:</strong> {monster.challenge_rating}
+                    </div>
                   </div>
                   {/* Actions section */}
                   <div className="actions-section mt-2">
@@ -178,6 +181,7 @@ const MonsterView = () => {
                     </div>
                   )}
                   {/* Description section */}
+                  <div className="section-title"><strong>Description:</strong></div>
                   <div className="description-section mt-2">
                     <Card.Text className="description">
                       {monster.description}

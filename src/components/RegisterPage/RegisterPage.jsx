@@ -27,7 +27,7 @@ function RegisterPage() {
 
   return (
     <>
-      <h2>Register Page</h2>
+      <h2 style={{ marginTop: '70px' }}>Register Page</h2>
       <form onSubmit={handleRegister}>
         <label htmlFor="username">Username:</label>
         <input

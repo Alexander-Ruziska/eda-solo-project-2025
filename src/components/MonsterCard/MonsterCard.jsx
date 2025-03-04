@@ -18,15 +18,15 @@ const MonsterCard = ({ monster }) => {
 
   return (
     <Link to={`/monster/${monster.id}`} className="monster-link">
-      <div className="monster-card">
-        <h3>{monster.name}</h3>
-        {image ? (
-          <img src={image} alt={monster.name} className="monster-image" />
-        ) : (
-          <p>Loading image...</p>
-        )}
-      </div>
-    </Link>
+  <div className="monster-card">
+    {image ? (
+      <img src={image} alt={monster.name} className="monster-image" />
+    ) : (
+      <p>Loading image...</p>
+    )}
+    <h3>{monster.name}</h3>
+  </div>
+</Link>
   );
 };
 

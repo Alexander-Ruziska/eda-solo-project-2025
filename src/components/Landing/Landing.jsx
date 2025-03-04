@@ -6,7 +6,7 @@ function Landing() {
 
   return (
     <div>
-      <h1>Welcome to the Monster Dashboard</h1>
+      <h1 style={{ marginTop: '70px' }}>Welcome to the Monster Dashboard</h1>
       <button onClick={() => navigate('/generate-monster')}>Create a New Monster!</button>
       <button onClick={() => navigate('/create-campaign')}>Create a Campaign</button>
       <button onClick={() => navigate('/library')}>Go to Your Library</button>

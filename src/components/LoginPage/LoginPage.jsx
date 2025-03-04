@@ -27,7 +27,7 @@ function LoginPage() {
 
   return (
     <>
-      <h2>Login Page</h2>
+      <h2 style={{ marginTop: '70px' }}>Login Page</h2>
       <form onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
