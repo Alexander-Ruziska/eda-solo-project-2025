@@ -1,0 +1,21 @@
+table {
+width: 100%;
+border-radius: 8px;
+color: aliceblue;
+margin-top: 20px;
+max-width: 600px;
+position: relative;
+}
+
+tr {
+    border-bottom: solid;
+}
+button {
+    margin-bottom: 10px;
+}
+h2 {
+    color: aliceblue;
+}
+.users {
+    align-self: center;
+}

@@ -55,7 +55,7 @@ function GenerateMonster() {
   return (
     <div>
       <form className="input-form" onSubmit={handleSubmit}>
-      <h1>Generate a Monster</h1>
+      <h1>Generate a Monster!</h1>
       <div class="col-sm-3">
         <input class="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
         <input class="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
@@ -64,8 +64,8 @@ function GenerateMonster() {
         <input class="form-control" name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
         <input class="form-control" name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
         </div>
-        <button class="btn btn-dark mt-3" type="submit">Generate Monster</button>
-        <button class="btn btn-dark mt-3" type="button" onClick={() => navigate('/library')}>
+        <button class="btn btn-dark mt-1" type="submit">Generate Monster</button>
+        <button class="btn btn-dark mt-1" type="button" onClick={() => navigate('/library')}>
           Go to Library
         </button>
       </form>
