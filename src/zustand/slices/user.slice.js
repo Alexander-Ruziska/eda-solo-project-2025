@@ -5,7 +5,6 @@ import axios from 'axios';
 // inside every request's header
 axios.defaults.withCredentials = true;
 
-
 const createUserSlice = (set, get) => ({
   user: {},
   authErrorMessage: '',
@@ -16,7 +15,7 @@ const createUserSlice = (set, get) => ({
       set({ user: data });
     } catch (err) {
       console.log('fetchUser error:', err);
-      set({user : {}});
+      set({ user: {} });
     }
   },
   register: async (newUserCredentials) => {
@@ -34,7 +33,7 @@ const createUserSlice = (set, get) => ({
   logIn: async (userCredentials) => {
     // Logs in an existing user by sending a POST request
     // to /api/user/login and then retrieves their data.
-    get().setAuthErrorMessage('')
+    get().setAuthErrorMessage('');
     try {
       await axios.post('/api/user/login', userCredentials);
       get().fetchUser();
@@ -50,21 +49,47 @@ const createUserSlice = (set, get) => ({
       }
     }
   },
-  logOut : async () => {
+  logOut: async () => {
     // Logs out the current user by sending a POST request to
     // /api/user/logout, and then clears their data.
     try {
       await axios.post('/api/user/logout');
-      set({user : {}});
+      set({ user: {} });
     } catch (err) {
       console.log('logOut error:', err);
     }
   },
   setAuthErrorMessage: (message) => {
     // Sets an error message for authentication-related issues.
-    set({authErrorMessage : message})
-  }
-})
+    set({ authErrorMessage: message });
+  },
 
+  // Admin Functions 
+ 
+  users: [],
+  fetchUsers: async () => {
+    // Retrieves all users for admin purposes from the /api/user/admin endpoint.
+    try {
+      const { data } = await axios.get('/api/user/admin');
+      // Filter out archived users
+      const activeUsers = data.filter(user => !user.archived);
+      set({ users: activeUsers });
+    } catch (err) {
+      console.log('fetchUsers error:', err);
+    }
+  },
+  archiveUser: async (userId) => {
+    // Archives a user by sending a PUT request to /api/user/archive/:id
+    try {
+      await axios.put(`/api/user/archive/${userId}`);
+      // Update users state by removing the archived user
+      set((state) => ({
+        users: state.users.filter(user => user.id !== userId)
+      }));
+    } catch (err) {
+      console.log('archiveUser error:', err);
+    }
+  }
+});
 
 export default createUserSlice;

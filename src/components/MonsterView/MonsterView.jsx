@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Card, Button, InputGroup } from "react-bootstrap";
 import useStore from "../../zustand/store"; 
 import "./MonsterView.css";
+import MonsterNav from '../MonsterNav/MonsterNav'; // Now import MonsterNav
 
 const MonsterView = () => {
   // Extract the monster id from the URL parameters
@@ -78,127 +79,132 @@ const MonsterView = () => {
   const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600px";
 
   return (
-    <Container style={{ marginTop: '70px' }} className="monster-view-wrapper">
-      {/* Update form for changing the monster name */}
-      <form onSubmit={handleSubmit} className="update-form">
-        <InputGroup>
-          {/* Native input element replacing Form.Control */}
-          <input
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            placeholder="Enter new name"
-            className="custom-input"
-          />
-          {/* Button to submit the update */}
-          <Button variant="primary" type="submit" className="update-button">
-            Update Name
-          </Button>
-        </InputGroup>
-      </form>
+    <>
+      {/* MonsterNav overlays the screen with navigation arrows */}
+      <MonsterNav />
 
-      {/* Card wrapper to ensure consistent spacing between the card and delete button */}
-      <div className="card-wrapper">
-        {/* Flip container with dynamic height based on device and flip state */}
-        <div className="flip-container" onClick={handleFlip} style={{ height: containerHeight }}>
-          {/* Flip card which rotates when flipped */}
-          <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
-            {/* Front Face of the card */}
-            <div className="face front-face">
-              <Card className="h-100">
-                {/* Card image */}
-                <Card.Img variant="top" src={monster.image_url} className="monster-image" />
-                {/* Overlay displaying the monster name */}
-                <Card.Body className="monster-name-overlay p-2">
-                  <Card.Title>{monster.name}</Card.Title>
-                </Card.Body>
-              </Card>
-            </div>
+      <Container style={{ marginTop: '100px' }} className="monster-view-wrapper">
+        {/* Update form for changing the monster name */}
+        <form onSubmit={handleSubmit} className="update-form">
+          <InputGroup>
+            {/* Native input element replacing Form.Control */}
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Enter new name"
+              className="custom-input"
+            />
+            {/* Button to submit the update */}
+            <Button variant="primary" type="submit" className="update-button">
+              Update Name
+            </Button>
+          </InputGroup>
+        </form>
 
-            {/* Back Face of the card */}
-            <div className="face back-face" ref={backFaceRef}>
-              <Card className="h-100">
-                <Card.Body className="back-content">
-                  {/* Header section with monster name, size, and alignment */}
-                  <div className="header-section">
+        {/* Card wrapper to ensure consistent spacing between the card and delete button */}
+        <div className="card-wrapper">
+          {/* Flip container with dynamic height based on device and flip state */}
+          <div className="flip-container" onClick={handleFlip} style={{ height: containerHeight }}>
+            {/* Flip card which rotates when flipped */}
+            <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
+              {/* Front Face of the card */}
+              <div className="face front-face">
+                <Card className="h-100">
+                  {/* Card image */}
+                  <Card.Img variant="top" src={monster.image_url} className="monster-image" />
+                  {/* Overlay displaying the monster name */}
+                  <Card.Body className="monster-name-overlay p-2">
                     <Card.Title>{monster.name}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {monster.size} | {monster.alignment}
-                      <Card.Subtitle className="mb-2 text-muted">Creature Type: {monster.type}</Card.Subtitle>
-                    </Card.Subtitle>
-                  </div>
-                  {/* Stats section displaying key numerical attributes */}
-                  <div className="stats-section d-flex flex-wrap justify-content-between">
-                    <div className="stat"><strong>HP:</strong> {monster.hit_points}</div>
-                    <div className="stat"><strong>Initiative:</strong> {monster.initiative}</div>
-                    <div className="stat"><strong>Speed:</strong> {monster.speed}</div>
-                    <div className="stat"><strong>Prof.:</strong> {monster.proficiency_bonus}</div>
-                    <div className="stat"><strong>AC:</strong> {monster.armor_class}</div>
-                  </div>
-                  {/* Abilities section */}
-                  <div className="abilities-section d-flex flex-wrap justify-content-between">
-                    <div className="ability"><strong>STR:</strong> {monster.strength}</div>
-                    <div className="ability"><strong>DEX:</strong> {monster.dexterity}</div>
-                    <div className="ability"><strong>CON:</strong> {monster.constitution}</div>
-                    <div className="ability"><strong>INT:</strong> {monster.intelligence}</div>
-                    <div className="ability"><strong>WIS:</strong> {monster.wisdom}</div>
-                    <div className="ability"><strong>CHA:</strong> {monster.charisma}</div>
-                  </div>
-                  {/* Attributes section with additional info */}
-                  <div className="attributes-section">
-                    <div className="attribute">
-                      <strong>Resistances:</strong> {monster.resistances.replace(/^\[|\]$/g, "")}
+                  </Card.Body>
+                </Card>
+              </div>
+
+              {/* Back Face of the card */}
+              <div className="face back-face" ref={backFaceRef}>
+                <Card className="h-100">
+                  <Card.Body className="back-content">
+                    {/* Header section with monster name, size, and alignment */}
+                    <div className="header-section">
+                      <Card.Title>{monster.name}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        {monster.size} | {monster.alignment}
+                        <Card.Subtitle className="mb-2 text-muted">Creature Type: {monster.type}</Card.Subtitle>
+                      </Card.Subtitle>
                     </div>
-                    <div className="attribute">
-                      <strong>Immunities:</strong> {monster.immunities.replace(/^\[|\]$/g, "")}
+                    {/* Stats section displaying key numerical attributes */}
+                    <div className="stats-section d-flex flex-wrap justify-content-between">
+                      <div className="stat"><strong>HP:</strong> {monster.hit_points}</div>
+                      <div className="stat"><strong>Initiative:</strong> {monster.initiative}</div>
+                      <div className="stat"><strong>Speed:</strong> {monster.speed}</div>
+                      <div className="stat"><strong>Prof.:</strong> {monster.proficiency_bonus}</div>
+                      <div className="stat"><strong>AC:</strong> {monster.armor_class}</div>
                     </div>
-                    <div className="attribute">
-                      <strong>Languages:</strong> {monster.languages.replace(/^\[|\]$/g, "")}
+                    {/* Abilities section */}
+                    <div className="abilities-section d-flex flex-wrap justify-content-between">
+                      <div className="ability"><strong>STR:</strong> {monster.strength}</div>
+                      <div className="ability"><strong>DEX:</strong> {monster.dexterity}</div>
+                      <div className="ability"><strong>CON:</strong> {monster.constitution}</div>
+                      <div className="ability"><strong>INT:</strong> {monster.intelligence}</div>
+                      <div className="ability"><strong>WIS:</strong> {monster.wisdom}</div>
+                      <div className="ability"><strong>CHA:</strong> {monster.charisma}</div>
                     </div>
-                    <div className="attribute">
-                      <strong>Skills:</strong> {monster.skills.replace(/^\[|\]$/g, "")}
+                    {/* Attributes section with additional info */}
+                    <div className="attributes-section">
+                      <div className="attribute">
+                        <strong>Resistances:</strong> {monster.resistances.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Immunities:</strong> {monster.immunities.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Languages:</strong> {monster.languages.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Skills:</strong> {monster.skills.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Senses:</strong> {monster.senses.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Saving Throws:</strong> {monster.saving_throws.replace(/^\[|\]$/g, "")}
+                      </div>
+                      <div className="attribute">
+                        <strong>Challenge Rating:</strong> {monster.challenge_rating}
+                      </div>
                     </div>
-                    <div className="attribute">
-                      <strong>Senses:</strong> {monster.senses.replace(/^\[|\]$/g, "")}
-                    </div>
-                    <div className="attribute">
-                      <strong>Saving Throws:</strong> {monster.saving_throws.replace(/^\[|\]$/g, "")}
-                    </div>
-                    <div className="attribute">
-                      <strong>Challenge Rating:</strong> {monster.challenge_rating}
-                    </div>
-                  </div>
-                  {/* Actions section */}
-                  <div className="actions-section mt-2">
-                    <div className="section-title"><strong>Actions:</strong></div>
-                    <div className="action">{monster.actions.replace(/^\[|\]$/g, "")}</div>
-                  </div>
-                  {/* Legendary Actions section (if present) */}
-                  {monster.ledgendary_actions && (
+                    {/* Actions section */}
                     <div className="actions-section mt-2">
-                      <div className="section-title"><strong>Legendary Actions:</strong></div>
-                      <div className="action">{monster.ledgendary_actions.replace(/^\[|\]$/g, "")}</div>
+                      <div className="section-title"><strong>Actions:</strong></div>
+                      <div className="action">{monster.actions.replace(/^\[|\]$/g, "")}</div>
                     </div>
-                  )}
-                  {/* Description section */}
-                  <div className="section-title"><strong>Description:</strong></div>
-                  <div className="description-section mt-2">
-                    <Card.Text className="description">
-                      {monster.description}
-                    </Card.Text>
-                  </div>
-                </Card.Body>
-              </Card>
+                    {/* Legendary Actions section (if present) */}
+                    {monster.ledgendary_actions && (
+                      <div className="actions-section mt-2">
+                        <div className="section-title"><strong>Legendary Actions:</strong></div>
+                        <div className="action">{monster.ledgendary_actions.replace(/^\[|\]$/g, "")}</div>
+                      </div>
+                    )}
+                    {/* Description section */}
+                    <div className="section-title"><strong>Description:</strong></div>
+                    <div className="description-section mt-2">
+                      <Card.Text className="description">
+                        {monster.description}
+                      </Card.Text>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Delete button below the card */}
-      <Button variant="danger" onClick={handleDelete} className="delete-button">
-        Delete Monster
-      </Button>
-    </Container>
+        {/* Delete button below the card */}
+        <Button variant="danger" onClick={handleDelete} className="delete-button">
+          Delete Monster
+        </Button>
+      </Container>
+    </>
   );
 };
 

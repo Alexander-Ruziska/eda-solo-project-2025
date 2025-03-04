@@ -11,7 +11,7 @@ function BasicExample() {
   return (
 
       <Col>
-        <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
+        <Navbar data-bs-theme="dark" expanded={expanded} onToggle={() => setExpanded(!expanded)} collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top" >
           <Container fluid>
             <Navbar.Brand href="#home">Ziska's Monster Generator</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

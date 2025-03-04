@@ -1,0 +1,27 @@
+.arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: .25rem;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1000; /* ensures the arrows are above other elements */
+   
+  }
+  
+  .arrow.back {
+    left: 5px;
+  }
+  
+  .arrow.next {
+    right: 5px;
+  }
+  
+  /* Optional: hover effect */
+  .arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
