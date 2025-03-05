@@ -168,6 +168,8 @@ router.post("/upload", async (req, res) => {
 //   }
 // });
 
+//____________________________________________________________________________________________________________________
+
 router.post("/", async (req, res) => {
   try {
     const { name } = req.body;
@@ -413,6 +415,8 @@ router.post("/", async (req, res) => {
   }
 });
 
+//________________________________________________________________________________________________________________________
+
 
 router.get("/", rejectUnauthenticated, async (req, res) => {
   try {
@@ -420,6 +424,16 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
     res.send(result.rows);
   } catch {
     res.status(500).send({ error: "Error fetching monsters" });
+  }
+});
+
+// Get all monsters
+router.get("/admin", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM monster ORDER BY id DESC");
+    res.send(result.rows);
+  } catch {
+    res.status(500).json({ error: "Error fetching monsters" });
   }
 });
 
@@ -435,17 +449,6 @@ router.get("/:id", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-// // Get all monsters
-router.get("/admin", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM monster ORDER BY id DESC");
-    res.send(result.rows);
-  } catch {
-    res.status(500).json({ error: "Error fetching monsters" });
-  }
-});
-
 
 router.get("/image/:id", async (req, res) => {
   const monsterId = req.params.id;

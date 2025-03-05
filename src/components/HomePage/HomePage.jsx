@@ -12,7 +12,7 @@ function HomePage() {
       <h2 style={{ marginTop: '100px' }}>Home Page</h2>
       <p>Your username is: {user.username}</p>
       <p>Your ID is: {user.id}</p>
-      <button class="btn btn-dark mt-3" onClick={logOut}>Log Out</button>
+      <button className="btn btn-dark mt-3" onClick={logOut}>Log Out</button>
     </>
   );
 }

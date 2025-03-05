@@ -15,6 +15,7 @@ import Library from '../Library/Library';
 import GenerateMonster from '../GenerateMonster/GenerateMonster';
 import Landing from '../Landing/Landing';
 import AdminUsers from '../Admin/AdminUsers';
+import AdminUserMonsters from '../Admin/AdminUserMonsters';
 
 
 
@@ -105,13 +106,23 @@ function App() {
           <Route 
             exact path="/admin"
             element={
-              user.id ? (
+              user.id && user.admin ? (
                 <AdminUsers to="/admin" replace /> // Redirect authenticated user.
               ) : (
                 <AdminUsers /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
+           <Route 
+            exact path="/admin/monsters/:userId"
+            element={
+              user.id && user.admin ? (
+                <AdminUserMonsters to="/admin/monsters/:userId" replace /> // Redirect authenticated user.
+              ) : ( 
+                <AdminUserMonsters /> // Render RegisterPage for unauthenticated user.
+              )
+            }
+          />Z
           <Route 
             exact path="/about"
             element={

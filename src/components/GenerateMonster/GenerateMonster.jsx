@@ -56,16 +56,16 @@ function GenerateMonster() {
     <div>
       <form className="input-form" onSubmit={handleSubmit}>
       <h1>Generate a Monster!</h1>
-      <div class="col-sm-3">
-        <input class="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
-        <input class="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
-        <input class="form-control" name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
-        <input class="form-control" name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
-        <input class="form-control" name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
-        <input class="form-control" name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
+      <div className="col-sm-3">
+        <input className="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
+        <input className="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
+        <input className="form-control" name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
+        <input className="form-control" name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
+        <input className="form-control" name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
+        <input className="form-control" name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
         </div>
-        <button class="btn btn-dark mt-1" type="submit">Generate Monster</button>
-        <button class="btn btn-dark mt-1" type="button" onClick={() => navigate('/library')}>
+        <button className="btn btn-dark mt-1" type="submit">Generate Monster</button>
+        <button className="btn btn-dark mt-1" type="button" onClick={() => navigate('/library')}>
           Go to Library
         </button>
       </form>
