@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Card, Button, InputGroup } from "react-bootstrap";
 import useStore from "../../zustand/store"; 
 import "./MonsterView.css";
-import MonsterNav from '../MonsterNav/MonsterNav'; // Now import MonsterNav
+import MonsterNav from '../MonsterNav/MonsterNav';
 
 const MonsterView = () => {
   // Extract the monster id from the URL parameters
@@ -72,11 +72,10 @@ const MonsterView = () => {
   };
 
   // Determine if the device is mobile based on window width
-  const isMobile = window.innerWidth < 800;
+  const isMobile = window.innerWidth < 768;
   // Set container height based on device type and flip state:
-  // - Desktop: fixed height of 600px.
   // - Mobile: 90vw if not flipped; 150vw if flipped.
-  const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600px";
+  const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600";
 
   return (
     <>
@@ -88,22 +87,14 @@ const MonsterView = () => {
         <form onSubmit={handleSubmit} className="update-form">
           <InputGroup>
             {/* Native input element replacing Form.Control */}
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              placeholder="Enter new name"
-              className="custom-input"
-            />
+            <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Enter new name" className="custom-input"/>
             {/* Button to submit the update */}
-            <Button variant="primary" type="submit" className="update-button">
-              Update Name
-            </Button>
+            <Button variant="primary" type="submit" className="update-button">Update Name</Button>
           </InputGroup>
         </form>
 
-        {/* Card wrapper to ensure consistent spacing between the card and delete button */}
-        <div className="card-wrapper">
+        {/* New wrapper for card and delete button */}
+        <div className="card-delete-wrapper">
           {/* Flip container with dynamic height based on device and flip state */}
           <div className="flip-container" onClick={handleFlip} style={{ height: containerHeight }}>
             {/* Flip card which rotates when flipped */}
@@ -113,10 +104,6 @@ const MonsterView = () => {
                 <Card className="h-100">
                   {/* Card image */}
                   <Card.Img variant="top" src={monster.image_url} className="monster-image" />
-                  {/* Overlay displaying the monster name */}
-                  <Card.Body className="monster-name-overlay p-2">
-                    <Card.Title>{monster.name}</Card.Title>
-                  </Card.Body>
                 </Card>
               </div>
 
@@ -151,27 +138,13 @@ const MonsterView = () => {
                     </div>
                     {/* Attributes section with additional info */}
                     <div className="attributes-section">
-                      <div className="attribute">
-                        <strong>Resistances:</strong> {monster.resistances.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Immunities:</strong> {monster.immunities.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Languages:</strong> {monster.languages.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Skills:</strong> {monster.skills.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Senses:</strong> {monster.senses.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Saving Throws:</strong> {monster.saving_throws.replace(/^\[|\]$/g, "")}
-                      </div>
-                      <div className="attribute">
-                        <strong>Challenge Rating:</strong> {monster.challenge_rating}
-                      </div>
+                      <div className="attribute"><strong>Resistances:</strong> {monster.resistances.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Immunities:</strong> {monster.immunities.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Languages:</strong> {monster.languages.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Skills:</strong> {monster.skills.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Senses:</strong> {monster.senses.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Saving Throws:</strong> {monster.saving_throws.replace(/^\[|\]$/g, "")}</div>
+                      <div className="attribute"><strong>Challenge Rating:</strong> {monster.challenge_rating}</div>
                     </div>
                     {/* Actions section */}
                     <div className="actions-section mt-2">
@@ -188,7 +161,7 @@ const MonsterView = () => {
                     {/* Description section */}
                     <div className="section-title"><strong>Description:</strong></div>
                     <div className="description-section mt-2">
-                      <Card.Text className="description">
+                      <Card.Text as="div" className="description">
                         {monster.description}
                       </Card.Text>
                     </div>
@@ -197,12 +170,12 @@ const MonsterView = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Delete button below the card */}
-        <Button variant="danger" onClick={handleDelete} className="delete-button">
-          Delete Monster
-        </Button>
+          {/* Delete button below the card */}
+          <Button variant="danger" onClick={handleDelete} className="delete-button">
+            Delete Monster
+          </Button>
+        </div>
       </Container>
     </>
   );

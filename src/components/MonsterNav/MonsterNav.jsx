@@ -1,35 +1,46 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import "./MonsterNav.css"; 
+import useStore from '../../zustand/store';
+import "./MonsterNav.css";
 
 const MonsterNavigation = () => {
-  // Get the current monster id from the URL
   const { id } = useParams();
   const navigate = useNavigate();
-  const monsterId = parseInt(id, 10);
+  const user = useStore(state => state.user);
+  const monsters = useStore(state => state.monsters) || [];
 
-  // Handler for going to the previous monster
+  const userMonsters = [];
+  for (let i = 0; i < monsters.length; i++) {
+    if (Number(monsters[i].user_id) === user.id) {
+      userMonsters.push(monsters[i]);
+    }
+  }
+
+  const currentId = +id;
+  let currentIndex = 0;
+  for (let i = 0; i < userMonsters.length; i++) {
+    if (userMonsters[i].id === currentId) {
+      currentIndex = i;
+      break;
+    }
+  }
+
   const handlePrev = () => {
-    if (monsterId > 1) { // Optionally prevent navigating to 0 or negative numbers
-      navigate(`/monster/${monsterId - 1}`);
+    if (currentIndex > 0) {
+      navigate(`/monster/${userMonsters[currentIndex - 1].id}`);
     }
   };
 
-  // Handler for going to the next monster
   const handleNext = () => {
-    navigate(`/monster/${monsterId + 1}`);
+    if (currentIndex < userMonsters.length - 1) {
+      navigate(`/monster/${userMonsters[currentIndex + 1].id}`);
+    }
   };
 
   return (
     <>
-      {/* Back arrow button */}
-      <button className="arrow back" onClick={handlePrev}>
-        &#8592;
-      </button>
-      {/* Next arrow button */}
-      <button className="arrow next" onClick={handleNext}>
-        &#8594;
-      </button>
+      <button className="arrow back" onClick={handlePrev} disabled={currentIndex === 0}>&#8592;</button>
+      <button className="arrow next" onClick={handleNext} disabled={currentIndex === userMonsters.length - 1}>&#8594;</button>
     </>
   );
 };
