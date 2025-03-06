@@ -54,8 +54,9 @@ function GenerateMonster() {
 
   return (
     <div>
-      <form className="input-form" onSubmit={handleSubmit}>
+      <form style={{ gap: '30px' }} className="input-form" onSubmit={handleSubmit}>
       <h1>Generate a Monster!</h1>
+      <h2 className="col-sm-5" >Fill in any desired fields and click "Generate Monster" to create a brand new monster.  If you're feeling lucky, leave all the fields blank and see what happens!</h2>
       <div className="col-sm-3">
         <input className="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
         <input className="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>

@@ -2,7 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+// import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from 'react-router-dom';
 import { useState } from "react";
 import useStore from "../../zustand/store";
@@ -15,6 +15,7 @@ function BasicExample() {
   const navigate = useNavigate();
 
   const logOutFunction = () => {
+    setExpanded(false);
     logOut();
     navigate('/login');
   }
@@ -23,7 +24,7 @@ function BasicExample() {
     <Col>
       <Navbar data-bs-theme="dark" expanded={expanded} onToggle={() => setExpanded(!expanded)} collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
         <Container fluid>
-          <Navbar.Brand href="#home">Ziska's Monster Generator</Navbar.Brand>
+          <Navbar.Brand >Ziska's Monster Generator</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -47,19 +48,24 @@ function BasicExample() {
                     <NavLink className="nav-link" to="/about" onClick={() => setExpanded(false)}>About</NavLink>
                   </Nav.Item>
                   <Nav.Item>
-                    <button onClick={logOutFunction} className="nav-link btn btn-link">
-                      Logout
-                    </button>
-                  </Nav.Item>
-                </>
-              ) : (
-                <>
-                  <Nav.Item>
-                    <NavLink className="nav-link" to="/login" onClick={() => setExpanded(false)}>Login</NavLink>
+                    <NavLink className="nav-link" to="/login" onClick={logOutFunction}>Logout</NavLink>
                   </Nav.Item>
                   <Nav.Item>
                     <NavLink className="nav-link" to="/registration" onClick={() => setExpanded(false)}>Register</NavLink>
                   </Nav.Item>
+                </>
+              ) : (
+                <>
+                  {!user.id && (
+                    <Nav.Item>
+                      <NavLink className="nav-link" to="/admin" onClick={() => setExpanded(false)}>Admin</NavLink>
+                    </Nav.Item>
+                  )}
+                  {!user.id && (
+                  <Nav.Item>
+                    <NavLink className="nav-link" to="/registration" onClick={() => setExpanded(false)}>Register</NavLink>
+                  </Nav.Item>
+                  )}
                 </>
               )}
             </Nav>

@@ -37,7 +37,7 @@ function App() {
             exact path="/"
             element={
               user.id ? (
-                <HomePage /> // Render HomePage for authenticated user.
+                <Navigate to="/landing" replace /> // Render HomePage for authenticated user.
               ) : (
                 <Navigate to="/login" replace /> // Redirect unauthenticated user.
               )
@@ -47,7 +47,7 @@ function App() {
             exact path="/login"
             element={
               user.id ? (
-                <Navigate to="/" replace /> // Redirect authenticated user.
+                <Navigate to="/landing" replace /> // Redirect authenticated user.
               ) : (
                 <LoginPage /> // Render LoginPage for unauthenticated user.
               )
@@ -57,7 +57,7 @@ function App() {
             exact path="/registration"
             element={
               user.id ? (
-                <Navigate to="/" replace /> // Redirect authenticated user.
+                <Navigate to="/landing" replace /> // Redirect authenticated user.
               ) : (
                 <RegisterPage /> // Render RegisterPage for unauthenticated user.
               )
@@ -69,7 +69,7 @@ function App() {
               user.id ? (
                 <Landing to="/landing" replace /> // Redirect authenticated user.
               ) : (
-                <Landing /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
@@ -79,7 +79,7 @@ function App() {
               user.id ? (
                 <Library to="/library" replace /> // Redirect authenticated user.
               ) : (
-                <Library /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
@@ -89,7 +89,7 @@ function App() {
               user.id ? (
                 <GenerateMonster to="/generate-monster" replace /> // Redirect authenticated user.
               ) : (
-                <GenerateMonster /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
@@ -99,7 +99,7 @@ function App() {
               user.id ? (
                 <MonsterView to="/monster-view" replace /> // Redirect authenticated user.
               ) : (
-                <MonsterView /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
@@ -109,7 +109,7 @@ function App() {
               user.id && user.admin ? (
                 <AdminUsers to="/admin" replace /> // Redirect authenticated user.
               ) : (
-                <AdminUsers /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />
@@ -119,7 +119,7 @@ function App() {
               user.id && user.admin ? (
                 <AdminUserMonsters to="/admin/monsters/:userId" replace /> // Redirect authenticated user.
               ) : ( 
-                <AdminUserMonsters /> // Render RegisterPage for unauthenticated user.
+                <LoginPage /> // Render RegisterPage for unauthenticated user.
               )
             }
           />Z
@@ -127,12 +127,11 @@ function App() {
             exact path="/about"
             element={
               <>
-                <h2 style={{ marginTop: '70px' }}>About Page</h2>
+                <h2 style={{ marginTop: '100px' }}>About Page</h2>
                 <p>
-                  Intelligence doesn’t seem like an aspect of personal character, and it isn’t.
-                  Coincidentally, great intelligence is only loosely connected to being a good programmer.
+                  Ziska's Monster Generator takes your inputs to prompt AI to create a custom monster for you with D&D 5E stats and an image!
                 </p>
-                <p>
+                {/* <p>
                   What? You don’t have to be superintelligent?
                 </p>
                 <p>
@@ -150,9 +149,9 @@ function App() {
                   The more you learn to compensate for your small brain, the better a programmer you’ll be.
                   <span className="squiggle"> The more humble you are, the faster you’ll improve.</span>
                 </p>
-                <p>
+                <p style={{ marginBottom: '100px' }}>
                   --From Steve McConnell's <em>Code Complete</em>.
-                </p>
+                </p> */}
               </>
             }
           />
@@ -165,7 +164,7 @@ function App() {
         </Routes>
       </main>
       <footer>
-        <p>Copyright © {new Date().getFullYear()}</p>
+        <p style={{ "fontSize": '10px' }}>Copyright © {new Date().getFullYear()}</p>
       </footer>
       </Container>
   );
