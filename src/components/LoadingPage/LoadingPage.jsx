@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import "./LoadingPage.css"; 
+import { Container, Card, Button, InputGroup } from "react-bootstrap";
 
 const LoadingPage = () => {
     const facts = [
@@ -43,8 +45,10 @@ const LoadingPage = () => {
   return (
     <div>
       <h1 style={{ marginTop: '100px' }}>Your Monster is being generated!</h1>
-      <img src="public/Images/Monster_Manual_5e_-_Beholder_-_p28.webp" style={{ width: '400px', height: '400px', marginBottom: '1rem' }}></img>
-      <p>Did you know: {fact}</p>
+                  <Card>
+                  <Card.Img variant="top" src="public/Images/Monster_Manual_5e_-_Beholder_-_p28.webp"/>
+                  </Card>
+      <p className="col-sm-5">Did you know: {fact}</p>
     </div>
   );
 };

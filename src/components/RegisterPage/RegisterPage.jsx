@@ -27,10 +27,11 @@ function RegisterPage() {
 
   return (
     <>
-      <h2 style={{ marginTop: '70px' }}>Register Page</h2>
+      <h2 style={{ marginTop: '100px' }}>Register Page</h2>
       <form onSubmit={handleRegister}>
         <label htmlFor="username">Username:</label>
         <input
+        className="form-control"
           type="text"
           id="username"
           required
@@ -39,13 +40,14 @@ function RegisterPage() {
         />
         <label htmlFor="password">Password:</label>
         <input
+        className="form-control"
           type="password"
           id="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button className="btn btn-dark mt-3, col-sm-3 mt-3" type="submit">
           Register 
         </button>
       </form>
