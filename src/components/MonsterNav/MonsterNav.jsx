@@ -39,8 +39,8 @@ const MonsterNavigation = () => {
 
   return (
     <>
-      <button className="arrow.back" onClick={handlePrev} disabled={currentIndex === 0}>&#8592;</button>
-      <button className="arrow.next" onClick={handleNext} disabled={currentIndex === userMonsters.length - 1}>&#8594;</button>
+      <button className="arrow back" onClick={handlePrev} disabled={currentIndex === 0}>&#8592;</button>
+      <button className="arrow next" onClick={handleNext} disabled={currentIndex === userMonsters.length - 1}>&#8594;</button>
     </>
   );
 };
