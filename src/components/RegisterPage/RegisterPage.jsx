@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
-
+import "./Register.css";
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -26,37 +26,37 @@ function RegisterPage() {
   };
 
   return (
-    <>
-      <h2 style={{ marginTop: '100px' }}>Register Page</h2>
-      <form onSubmit={handleRegister}>
+    <div className="register-container">
+      <h2>Register Page</h2>
+
+      <form onSubmit={handleRegister} className="register-form">
         <label htmlFor="username">Username:</label>
         <input
-        className="form-control"
+          className="form-control"
           type="text"
           id="username"
           required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
         <label htmlFor="password">Password:</label>
         <input
-        className="form-control"
+          className="form-control"
           type="password"
           id="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn btn-dark mt-3, col-sm-3 mt-3" type="submit">
+
+        <button className="btn btn-dark register-button" type="submit">
           Register 
         </button>
       </form>
-      { // Conditionally render registration error:
-        errorMessage && (
-          <h3>{errorMessage}</h3>
-        )
-      }
-    </>
+
+      {errorMessage && <h3 className="error-message">{errorMessage}</h3>}
+    </div>
   );
 }
 
