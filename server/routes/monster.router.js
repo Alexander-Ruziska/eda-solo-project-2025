@@ -420,7 +420,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", rejectUnauthenticated, async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM monster WHERE user_id = $1",[req.user.id]);
+    const result = await pool.query("SELECT * FROM monster WHERE user_id = $1 ORDER BY name ASC;",[req.user.id]);
     res.send(result.rows);
   } catch {
     res.status(500).send({ error: "Error fetching monsters" });

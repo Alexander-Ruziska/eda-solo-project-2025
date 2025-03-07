@@ -43,12 +43,18 @@ const LoadingPage = () => {
   }, [facts]);
 
   return (
-    <div>
-      <h1 style={{ marginTop: '100px' }}>Your Monster is being generated!</h1>
-                  <Card>
-                  <Card.Img variant="top" src="public/Images/Monster_Manual_5e_-_Beholder_-_p28.webp"/>
-                  </Card>
-      <p className="col-sm-5">Did you know: {fact}</p>
+    <div className="containerLoading">
+      <h6 style={{ marginTop: '100px', textAlign: 'center', marginBottom: '20px', paddingRightRight: '0px' }}>Your Monster is being generated!</h6>
+      <Card style={{ maxWidth: '500px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <Card.Img
+    variant="top"
+    src="public/Images/da1c5863-7671-4878-856d-48e394fb3e46.webp"
+    style={{ width: '100%', maxWidth: '500px', height: 'auto' }}/>
+    
+</Card>
+
+
+<h5 className="col-lg-12">Did you know? {fact}</h5>
     </div>
   );
 };

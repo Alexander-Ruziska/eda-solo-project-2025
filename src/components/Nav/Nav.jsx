@@ -28,7 +28,7 @@ function BasicExample() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {user ? (
+              {user.id && (
                 <>
                   <Nav.Item>
                     <NavLink className="nav-link" to="/landing" onClick={() => setExpanded(false)}>Home</NavLink>
@@ -39,33 +39,30 @@ function BasicExample() {
                   <Nav.Item>
                     <NavLink className="nav-link" to="/library" onClick={() => setExpanded(false)}>Library</NavLink>
                   </Nav.Item>
-                  {user.admin && (
-                    <Nav.Item>
-                      <NavLink className="nav-link" to="/admin" onClick={() => setExpanded(false)}>Admin</NavLink>
-                    </Nav.Item>
-                  )}
                   <Nav.Item>
                     <NavLink className="nav-link" to="/about" onClick={() => setExpanded(false)}>About</NavLink>
                   </Nav.Item>
                   <Nav.Item>
                     <NavLink className="nav-link" to="/login" onClick={logOutFunction}>Logout</NavLink>
                   </Nav.Item>
-                  <Nav.Item>
-                    <NavLink className="nav-link" to="/registration" onClick={() => setExpanded(false)}>Register</NavLink>
-                  </Nav.Item>
-                </>
-              ) : (
-                <>
-                  {!user.id && (
+                  {user.admin && (
                     <Nav.Item>
                       <NavLink className="nav-link" to="/admin" onClick={() => setExpanded(false)}>Admin</NavLink>
                     </Nav.Item>
-                  )}
+                    )}
+              </>
+              )}
+              
                   {!user.id && (
+                     <>
                   <Nav.Item>
                     <NavLink className="nav-link" to="/registration" onClick={() => setExpanded(false)}>Register</NavLink>
                   </Nav.Item>
-                  )}
+                  {!user.id && (
+                  <Nav.Item>
+                    <NavLink className="nav-link" to="/login" onClick={() => setExpanded(false)}>Login</NavLink>
+                  </Nav.Item>
+                   )}
                 </>
               )}
             </Nav>

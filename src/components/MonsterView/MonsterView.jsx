@@ -72,7 +72,7 @@ const MonsterView = () => {
   };
 
   // Determine if the device is mobile based on window width
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 500;
   // Set container height based on device type and flip state:
   // - Mobile: 90vw if not flipped; 150vw if flipped.
   const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600";

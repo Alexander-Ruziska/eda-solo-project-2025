@@ -122,7 +122,7 @@
 
 
 /* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .monster-view-wrapper {
     max-width: 100%;
     padding-top: 1rem;

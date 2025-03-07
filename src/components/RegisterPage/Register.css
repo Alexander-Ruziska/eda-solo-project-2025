@@ -1,33 +1,33 @@
-
-.login-container {
+/* Centering container */
+.register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; 
+    height: 100vh; /* Full viewport height */
     text-align: center;
   }
   
- 
-  .login-form {
+  /* Form styling */
+  .register-form {
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
   }
   
-
-  .login-form input {
+  /* Input fields */
+  .register-form input {
     margin-bottom: 10px;
   }
   
-
-  .login-button {
+  /* Button */
+  .register-button {
     width: 100%;
     margin-top: 10px;
   }
   
- 
+  /* Error message */
   .error-message {
     margin-top: 15px;
     color: red;
