@@ -127,9 +127,9 @@ function App() {
             exact path="/about"
             element={
               <>
-                <h2 style={{ marginTop: '100px' }}>About Page</h2>
+                <h2 style={{ marginTop: '120px' }}>About Page</h2>
                 <p>
-                  Ziska's Monster Generator takes your inputs to prompt AI to create a custom monster for you with D&D 5E stats and an image!
+                  Ziska's Monster Generator is an interactive tool for Dungeons & Dragons enthusiasts. It offers a blend of user customization and random generation to produce unique monsters complete with stats, abilities, and images. With an intuitive form for entering key monster parameters and a dynamic output that provides an immersive monster profile, this app enhances gameplay and storytelling for any D&D campaign.
                 </p>
                 {/* <p>
                   What? You don’t have to be superintelligent?
