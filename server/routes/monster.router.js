@@ -471,23 +471,43 @@ router.get("/image/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", rejectUnauthenticated, (req, res) => {
-  console.log(req.params);
-  // const reqId = req.user.id; //there can't be a req.body in a delete
-  //I am trying to grab the id of the user making the request
-  // console.log(reqId);
-  const query = `DELETE FROM "monster" WHERE "monster"."id" = $1 AND "monster"."user_id" = $2;
-  `;
-  pool.query(query, [req.params.id, req.user.id]) //I need another item in brackets in these params.
-    .then(result => {
-    
-      res.send(result.rows);
-    })
-    .catch(err => {
-      console.log(`Error delete backend`, err);
-      res.sendStatus(500);
-    })
-})
+router.delete("/delete/:id", rejectUnauthenticated, async (req, res) => {
+  try {
+    // Check if the user is an admin
+    const userQuery = `SELECT "admin" FROM "user" WHERE id = $1;`;
+    const userResult = await pool.query(userQuery, [req.user.id]);
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const isAdmin = userResult.rows[0].admin; 
+
+    let query;
+    let params;
+
+    if (isAdmin) {
+      query = `DELETE FROM "monster" WHERE "id" = $1;`;
+      params = [req.params.id];
+    } else {
+      // Regular users can only delete their own monsters
+      query = `DELETE FROM "monster" WHERE "id" = $1 AND "user_id" = $2;`;
+      params = [req.params.id, req.user.id];
+    }
+
+    const result = await pool.query(query, params);
+
+    if (result.rowCount === 0) {
+      return res.status(403).json({ error: "Unauthorized to delete this monster" });
+    }
+
+    res.status(200).json({ message: "Monster deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting monster:", err);
+    res.status(500).json({ error: "Failed to delete monster" });
+  }
+});
+
 
 
 router.put("/edit/:id", rejectUnauthenticated, (req, res) => {

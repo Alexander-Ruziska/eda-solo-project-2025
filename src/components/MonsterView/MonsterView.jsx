@@ -79,17 +79,20 @@ const MonsterView = () => {
 
   return (
     <>
+   <h2 style={{ textAlign: 'center', width: "100%",marginTop: '100px', fontSize: '30px'  }}>Monster Details</h2>
+
       {/* MonsterNav overlays the screen with navigation arrows */}
       <MonsterNav />
 
-      <Container style={{ marginTop: '100px' }} className="monster-view-wrapper">
+      <Container className="monster-view-wrapper">
         {/* Update form for changing the monster name */}
         <form onSubmit={handleSubmit} className="update-form">
           <InputGroup>
             {/* Native input element replacing Form.Control */}
             <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Enter new name" className="custom-input"/>
             {/* Button to submit the update */}
-            <Button variant="primary" type="submit" className="update-button">Update Name</Button>
+            <Button variant="dark" type="submit" className="update-button">Update Name</Button>
+            <h2 style={{ textAlign: 'center', width: "100%" }}>Click on the monster image to see monster details.</h2>
           </InputGroup>
         </form>
 
