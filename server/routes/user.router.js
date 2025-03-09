@@ -89,7 +89,18 @@ router.post('/logout', (req, res, next) => {
   });
 });
 
-
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT username FROM user WHERE id = $1", [req.params.id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(result.rows[0]); // Send back the username
+  } catch (error) {
+    console.error("Error fetching user details", error);
+    res.sendStatus(500);
+  }
+});
 
 
 module.exports = router;

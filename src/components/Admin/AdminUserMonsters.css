@@ -1,0 +1,20 @@
+.monsters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything horizontally */
+    justify-content: center; /* Optional: Centers vertically if needed */
+    width: 100%;
+    text-align: center;
+}
+
+.table-wrapper {
+    width: 100%;
+    max-width: 800px; /* Adjust the max width as needed */
+}
+
+table {
+    width: 100%;
+    border-radius: 8px;
+    color: aliceblue;
+    margin-top: 20px;
+}

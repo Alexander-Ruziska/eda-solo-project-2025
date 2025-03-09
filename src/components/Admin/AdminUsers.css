@@ -3,7 +3,7 @@ width: 100%;
 border-radius: 8px;
 color: aliceblue;
 margin-top: 20px;
-max-width: 600px;
+max-width: 800px;
 position: relative;
 }
 
@@ -17,5 +17,9 @@ h2 {
     color: aliceblue;
 }
 .users {
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: center; /* Centers content vertically (if needed) */
+    width: 100%;
 }

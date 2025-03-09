@@ -18,7 +18,7 @@ const MonsterCard = ({ monster }) => {
 
   return (
     <Link to={`/monster/${monster.id}`} className="monster-link">
-  <div className="monster-card" style={{ marginTop: '50px' }}>
+  <div className="monster-card" style={{ marginTop: '0px' }}>
     {image ? (
       <img src={image} alt={monster.name} className="monster-image" />
     ) : (

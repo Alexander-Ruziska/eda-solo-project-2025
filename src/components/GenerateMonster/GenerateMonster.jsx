@@ -54,15 +54,21 @@ function GenerateMonster() {
 
   return (
     <div>
-      <form style={{ gap: '30px' }} className="input-form" onSubmit={handleSubmit}>
+      <form style={{ gap: '20px' }} className="input-form" onSubmit={handleSubmit}>
       <h1>Generate a Monster!</h1>
       <h2 className="col-sm-4" >Fill in any desired fields and click "Generate Monster" to create a brand new monster.  If you're feeling lucky, leave all the fields blank and see what happens!</h2>
       <div className="col-sm-3">
+        <label htmlFor="monster-name">Monster Name:</label>
         <input className="form-control" name="name" placeholder="Monster Name" onChange={handleChange} value={form.name}/>
+        <label htmlFor="challenge-rating">Challenge Rating:</label>
         <input className="form-control" name="challengeRating" placeholder="Challenge Rating" onChange={handleChange} value={form.challengeRating}/>
-        <input className="form-control" name="acRequirements" placeholder="AC Requirements" onChange={handleChange} value={form.acRequirements}/>
+        <label htmlFor="armor-class">Armor Class:</label>
+        <input className="form-control" name="acRequirements" placeholder="Armor Class" onChange={handleChange} value={form.acRequirements}/>
+        <label htmlFor="environment">Environment:</label>
         <input className="form-control" name="environment" placeholder="Environment" onChange={handleChange} value={form.environment}/>
+        <label htmlFor="resistances">Resistances:</label>
         <input className="form-control" name="resistances" placeholder="Resistances" onChange={handleChange} value={form.resistances}/>
+        <label htmlFor="creature-type">Creature Type:</label>
         <input className="form-control" name="creatureType" placeholder="Creature Type" onChange={handleChange} value={form.creatureType}/>
         </div>
         <button className="btn btn-dark mt-1" type="submit">Generate Monster</button>
