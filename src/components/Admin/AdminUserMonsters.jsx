@@ -46,7 +46,7 @@ function AdminUserMonsters() {
   return (
     <div className="monsters-container">
       <h2 style={{ marginTop: "100px" }}>
-        Monsters for {username ? username : "User"}
+        Monster List
       </h2>
       {monsters.length === 0 ? (
         <p>No monsters found for this user.</p>
