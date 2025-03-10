@@ -14,15 +14,15 @@ function AdminUsers() {
   }, [fetchUsers]);
 
   return (
-    <div className="users" style={{ marginTop: "100px" }}>
-      <h2>Welcome Ziska!</h2>
+    <div className="users" style={{ marginTop: "100px"}}>
+      <h2 style={{fontSize: '36px' }}>Welcome Ziska!</h2>
       <table>
         <thead>
           <tr>
-            <th>User Name</th>
-            <th>Created</th>
-            <th>Actions</th>
-            <th>Monsters</th>
+            <th><strong>User Name</strong></th>
+            <th><strong>Created</strong></th>
+            <th><strong>Actions</strong></th>
+            <th><strong>Monsters</strong></th>
           </tr>
         </thead>
         <tbody>

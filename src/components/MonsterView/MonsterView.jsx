@@ -92,7 +92,7 @@ const MonsterView = () => {
             <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Enter new name" className="custom-input"/>
             {/* Button to submit the update */}
             <Button variant="dark" type="submit" className="update-button">Update Name</Button>
-            <h2 style={{ textAlign: 'center', width: "100%", fontSize: '20px' }}>Click on the Monster Card to flip between the image and stat block.</h2>
+            <h2 style={{ textAlign: 'center', width: "100%", fontSize: '24px' }}><strong>Click on the Monster Card to flip between the image and stat block.</strong></h2>
           </InputGroup>
         </form>
 

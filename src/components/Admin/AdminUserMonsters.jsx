@@ -45,7 +45,7 @@ function AdminUserMonsters() {
 
   return (
     <div className="monsters-container">
-      <h2 style={{ marginTop: "100px" }}>
+      <h2 style={{ marginTop: "100px", fontSize: '36px' }}>
         Monster List
       </h2>
       {monsters.length === 0 ? (
