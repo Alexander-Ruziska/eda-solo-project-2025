@@ -27,10 +27,10 @@ function RegisterPage() {
 
   return (
     <div className="register-container">
-      <h2>Register Page</h2>
+      <h2><strong>Register Page</strong></h2>
 
       <form onSubmit={handleRegister} className="register-form">
-        <label htmlFor="username">Username:</label>
+        <label style={{ color: 'white' }} htmlFor="username"><strong>Username:</strong></label>
         <input
           className="form-control"
           type="text"
@@ -40,7 +40,7 @@ function RegisterPage() {
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <label htmlFor="password">Password:</label>
+        <label style={{ color: 'white' }} htmlFor="password"><strong>Password:</strong></label>
         <input
           className="form-control"
           type="password"

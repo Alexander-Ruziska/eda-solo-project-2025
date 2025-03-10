@@ -22,10 +22,10 @@ function LoginPage() {
 
   return (
     <div className="login-container">
-      <h2>Login Page</h2>
+      <h2><strong>Login Page</strong></h2>
 
       <form onSubmit={handleLogIn} className="login-form">
-        <label htmlFor="username">Username:</label>
+        <label style={{ color: 'white' }} htmlFor="username"><strong>Username:</strong></label>
         <input
           className="form-control"
           type="text"
@@ -35,7 +35,7 @@ function LoginPage() {
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <label htmlFor="password">Password:</label>
+        <label style={{ color: 'white' }} htmlFor="password"><strong>Password:</strong></label>
         <input 
           className="form-control"
           type="password"
