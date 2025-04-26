@@ -19,6 +19,9 @@ const MonsterView = () => {
   // Create a ref to the back face of the card (for scrolling to the top when flipped)
   const backFaceRef = useRef(null);
 
+  // State to track if device is mobile
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+
   // Destructure functions from the global store
   const { fetchMonsterDetail, updateMonster, deleteMonster } = useStore();
 
@@ -36,6 +39,13 @@ const MonsterView = () => {
     }
     fetchMonster();
   }, [id, fetchMonsterDetail]); // Re-run if the id or fetchMonsterDetail function changes
+
+  // useEffect to update isMobile on window resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 500);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // While the monster data is being fetched, show a loading message
   if (!monster) return <div>Loading...</div>;
@@ -71,15 +81,12 @@ const MonsterView = () => {
     }
   };
 
-  // Determine if the device is mobile based on window width
-  const isMobile = window.innerWidth < 500;
-  // Set container height based on device type and flip state:
-  // - Mobile: 90vw if not flipped; 150vw if flipped.
-  const containerHeight = isMobile ? (isFlipped ? "160vw" : "90vw") : "600";
+  // Set container height based on device type
+  const containerHeight = isMobile ? "90vw" : "40vw";
 
   return (
     <>
-   <h2 style={{ textAlign: 'center', width: "100%",marginTop: '100px', fontSize: '36px'  }}>Monster Card</h2>
+      <h2 style={{ textAlign: 'center', width: "100%", marginTop: '100px', fontSize: '36px' }}>Monster Card</h2>
 
       {/* MonsterNav overlays the screen with navigation arrows */}
       <MonsterNav />

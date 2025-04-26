@@ -111,6 +111,7 @@
 }
 .delete-button {
   position: relative;
+  margin-bottom: 70px;
 }
 
 /* Mobile adjustments */
@@ -132,6 +133,7 @@
 
   .delete-button {
     position: relative;
+    margin-bottom: 0px;
   }
   /*needs to be adjusted. button does not stay same for all views*/
 
