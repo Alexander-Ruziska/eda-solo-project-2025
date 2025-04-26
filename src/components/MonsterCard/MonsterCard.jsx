@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useStore from "../../zustand/store"; // Adjust the import path as needed
 import "./MonsterCard.css"; 
 
-const MonsterCard = ({ monster }) => {
+  const MonsterCard = ({ monster }) => {
   // Destructure monsterImages and fetchMonsterImage from the global store
   const { monsterImages, fetchMonsterImage } = useStore();
   // Retrieve the image for the current monster from the store

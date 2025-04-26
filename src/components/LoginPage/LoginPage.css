@@ -8,7 +8,6 @@
     text-align: center;
   }
   
- 
   .login-form {
     width: 100%;
     max-width: 400px;
@@ -16,18 +15,15 @@
     flex-direction: column;
   }
   
-
   .login-form input {
     margin-bottom: 10px;
   }
-  
 
   .login-button {
     width: 100%;
     margin-top: 10px;
   }
   
- 
   .error-message {
     margin-top: 15px;
     color: red;

@@ -17,9 +17,6 @@ import Landing from '../Landing/Landing';
 import AdminUsers from '../Admin/AdminUsers';
 import AdminUserMonsters from '../Admin/AdminUserMonsters';
 
-
-
-
 function App() {
   const user = useStore((state) => state.user);
   const fetchUser = useStore((state) => state.fetchUser);
@@ -131,27 +128,6 @@ function App() {
                 <p style={{ fontSize: '20px' }}>
                 <strong>Ziska's Monster Generator is an interactive tool for Dungeons & Dragons enthusiasts. It offers a blend of user customization and random generation to produce unique monsters complete with stats, abilities, and images. With an intuitive form for entering key monster parameters and a dynamic output that provides an immersive monster profile, this app enhances gameplay and storytelling for any D&D campaign.</strong>
                 </p>
-                {/* <p>
-                  What? You don’t have to be superintelligent?
-                </p>
-                <p>
-                  No, you don’t. Nobody is really smart enough to program computers.
-                  Fully understanding an average program requires an almost limitless capacity
-                  to absorb details and an equal capacity to comprehend them all at the same time.
-                  The way you focus your intelligence is more important than how much intelligence you have…
-                </p>
-                <p>
-                  …most of programming is an attempt to compensate for the strictly limited size of our skulls.
-                  The people who are the best programmers are the people who realize how small their brains are.
-                  They are humble. The people who are the worst at programming are the people who refuse to
-                  accept the fact that their brains aren’t equal to the task.
-                  Their egos keep them from being great programmers.
-                  The more you learn to compensate for your small brain, the better a programmer you’ll be.
-                  <span className="squiggle"> The more humble you are, the faster you’ll improve.</span>
-                </p>
-                <p style={{ marginBottom: '100px' }}>
-                  --From Steve McConnell's <em>Code Complete</em>.
-                </p> */}
               </>
             }
           />

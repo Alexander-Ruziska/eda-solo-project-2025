@@ -37,6 +37,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.10",
     "@testing-library/react": "^16.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "install": "^0.13.0",

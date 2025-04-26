@@ -1,28 +1,24 @@
 const pg = require('pg');
 let pool;
 
-
-// When our app is deployed to the internet, we'll use the
-// DATABASE_URL environment variable to set the connection info.
-// Example of a valid DATABASE_URL: 
-  //  DATABASE_URL=postgresql://jDoe354:secretPw123@some.db.com/eda_solo_project
+// Example of what DATABASE_URL could look like (you get this from your db provider)
+// DATABASE_URL=postgresql://jDoe354:secretPw123@some.db.com/db_name?sslmode=require
 if (process.env.DATABASE_URL) {
+  console.log(`Using cloud database config (DATABASE_URL found)`);
   pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
+    ssl: { rejectUnauthorized: false }
   });
-}
-// When we're running this app on our own computer we'll connect to the
-// postgres database that is also running on localhost:5432.
-else {
+} else {
+  console.log(`Using local database config (no DATABASE_URL found)`);
+
   pool = new pg.Pool({
     host: 'localhost',
     port: 5432,
-    database: 'monster_generator',   // 👈 Change this to the name of your database!
+    database: 'monster_generator',
   });
 }
-
+pool.on('connect', () => console.log(`Connected to database`));
+pool.on('error', (err) => console.error(`Error connecting to database:`, err));
 
 module.exports = pool;

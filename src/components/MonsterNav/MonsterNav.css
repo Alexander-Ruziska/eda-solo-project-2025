@@ -15,11 +15,12 @@
   .arrow.back {
     left: 5px;
   }
+  /* fix sizing*/
   
   .arrow.next {
     right: 5px;
-    
   }
+  /* fix sizing*/
   
   /* Optional: hover effect */
   .arrow:hover {

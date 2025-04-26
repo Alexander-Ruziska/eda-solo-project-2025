@@ -48,7 +48,7 @@ const LoadingPage = () => {
       <Card style={{ maxWidth: '500px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
   <Card.Img
     variant="top"
-    src="public/Images/da1c5863-7671-4878-856d-48e394fb3e46.webp"
+    src="/Images/da1c5863-7671-4878-856d-48e394fb3e46.webp"
     style={{ width: '100%', maxWidth: '500px', height: 'auto' }}/>
     
 </Card>
